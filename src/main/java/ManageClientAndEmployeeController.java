@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -48,15 +49,21 @@ public class ManageClientAndEmployeeController implements Initializable {
     //When typing the phone number, when a key is pressed, it should automatically shift to the next index
     @FXML
     private void changeToNextNumber(KeyEvent event){
-        TextField enteredField = (TextField) event.getSource();
-        String fieldId = enteredField.getId();
-        System.out.println(fieldId);
-        int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
-        System.out.println(indexOfField);
-        phoneNumber[indexOfField + 1].requestFocus();
-
+        if (event.getCode() != KeyCode.ENTER){
+            TextField enteredField = (TextField) event.getSource();
+            String fieldId = enteredField.getId();
+            System.out.println(fieldId);
+            int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
+            System.out.println(indexOfField);
+            phoneNumber[indexOfField + 1].requestFocus();
+        }
     }
 
+    //Getting all the information
+    @FXML
+    private void getAllEnteredInformation(){
+
+    }
 
     //Adding the possible options to the choice boxes on the form
     @Override

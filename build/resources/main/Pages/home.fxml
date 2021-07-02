@@ -65,7 +65,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="342.0" layoutY="543.0" prefHeight="200.0" prefWidth="1250.0" spacing="400.0">
          <children>
-            <Button fx:id="manageClientAndEmployee" mnemonicParsing="false" onAction="#buttonClick" prefHeight="146.0" prefWidth="200.0" text="Manage Client/Employee" wrapText="true">
+            <Button fx:id="manageClientOrEmployee" mnemonicParsing="false" onAction="#buttonClick" prefHeight="146.0" prefWidth="200.0" text="Manage Client or Employee" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>

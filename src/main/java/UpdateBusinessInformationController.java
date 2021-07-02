@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -63,15 +64,29 @@ public class UpdateBusinessInformationController implements Initializable {
     }
 
     //When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    //10th number doesnt work with this, fix it to work
     @FXML
     private void changeToNextNumber(KeyEvent event){
-        TextField enteredField = (TextField) event.getSource();
-        String fieldId = enteredField.getId();
-        System.out.println(fieldId);
-        int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
-        System.out.println(indexOfField);
-        phoneNumber[indexOfField + 1].requestFocus();
+        if (event.getCode() != KeyCode.BACK_SPACE){
+            TextField enteredField = (TextField) event.getSource();
+            String fieldId = enteredField.getId();
+            restrictLength(enteredField);
+            System.out.println(fieldId);
+            if (enteredField != tenthNumber){
+                int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
+                System.out.println(indexOfField);
+                phoneNumber[indexOfField + 1].requestFocus();
+            }
+        }
+    }
 
+    //Making sure that the amount of numbers in one phone number box is not greater than one
+    private void restrictLength(TextField field){
+        int maximumLength = 1;
+        if (field.getText().length() > 1){
+            String s = field.getText().substring(0, maximumLength);
+            field.setText(s);
+        }
     }
 
     //Get the current business information

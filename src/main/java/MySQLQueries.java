@@ -45,22 +45,51 @@ public class MySQLQueries {
 
     }
 
-    public static void addEmployee() throws SQLException, ClassNotFoundException {
+    //Adding an employee to the database
+    public static void addEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
+        String sql = "insert into employee(EmployeeName, EmailAddress, PhoneNumber, DateOfBirth, Salary, EmergencyContact) values (?, ?, ?, ?, ?, ?)";
+        PreparedStatement addEmployee = connection.prepareStatement(sql);
+        for (int i = 0; i < employeeInformation.size(); i++){
+            if (i == 4){
+                addEmployee.setString(i + 1, employeeInformation.get(i));
+                continue;
+            }
+            addEmployee.setString(i + 1, employeeInformation.get(i));
+        }
+        addEmployee.executeUpdate();
     }
 
-    public static void addClient() throws SQLException, ClassNotFoundException {
+    //Adding a client to the database
+    public static void addClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-
+        String sql = "insert into customer(CustomerName, EmailAddress, PhoneNumber) values (?,?,?)";
+        PreparedStatement addClient = connection.prepareStatement(sql);
+        for (int i = 0; i < clientInformation.size(); i++){
+            addClient.setString(i + 1, clientInformation.get(i));
+        }
+        addClient.executeUpdate();
     }
 
-    public static void deleteClient() throws SQLException, ClassNotFoundException {
+    //Deleting a client from the database
+    public static void deleteClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-
+        String sql = "delete from customer where name = ? and PhoneNumber = ?";
+        PreparedStatement deleteClient = connection.prepareStatement(sql);
+        for (int i = 0; i < clientInformation.size(); i++){
+            deleteClient.setString(i + 1, clientInformation.get(i));
+        }
+        deleteClient.executeUpdate();
     }
 
-    public static void deleteEmployee() throws SQLException, ClassNotFoundException {
+    //Deleting an employee from the database
+    public static void deleteEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-
+        String sql = "delete from employee where name = ? and PhoneNumber = ?";
+        PreparedStatement deleteClient = connection.prepareStatement(sql);
+        for (int i = 0; i < employeeInformation.size(); i++){
+            deleteClient.setString(i + 1, employeeInformation.get(i));
+        }
+        deleteClient.executeUpdate();
     }
 }

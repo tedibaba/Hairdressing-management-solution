@@ -59,10 +59,10 @@
       <Button layoutX="1066.0" layoutY="916.0" mnemonicParsing="false" onAction="#updateCurrentBusinessInformation" prefHeight="53.0" prefWidth="223.0" text="Update Business Information" />
       <HBox layoutX="844.0" layoutY="690.0" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
          <children>
-            <TextField fx:id="firstNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="secondNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="thirdNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="fourthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+            <TextField fx:id="firstNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="secondNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="thirdNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="fourthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
                <HBox.margin>
                   <Insets right="40.0" />
                </HBox.margin>
@@ -70,15 +70,15 @@
                   <Insets right="20.0" />
                </padding>
             </TextField>
-            <TextField fx:id="fifthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="sixthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="seventhNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+            <TextField fx:id="fifthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="sixthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="seventhNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
                <HBox.margin>
                   <Insets right="40.0" />
                </HBox.margin>
             </TextField>
-            <TextField fx:id="eighthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="ninthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="eighthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+            <TextField fx:id="ninthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
             <TextField fx:id="tenthNumber" prefHeight="53.0" prefWidth="36.0" />
          </children>
       </HBox>
