@@ -1,14 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="AddStock"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddStockController">
+   <children>
+      <ImageView fitHeight="988.0" fitWidth="518.0" layoutX="1397.0" layoutY="3.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Images/addStock.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="TOP_CENTER" layoutX="-4.0" layoutY="6.0" prefHeight="984.0" prefWidth="1376.0" spacing="70.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0">
+                           <graphic>
+                              <ImageView blendMode="DARKEN" fitHeight="76.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/Back%20arrow.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                        <Label text="Return">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label text="Add stock">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="400.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="307.0" prefWidth="1336.0">
+               <children>
+                  <Label text="What is the type of stock that is being added?">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ChoiceBox fx:id="typeOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="55.0" prefWidth="468.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="431.0">
+                           <children>
+                              <Label fx:id="typeOfStockError" textFill="#f50000">
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="Brand of stock:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="brandOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="390.0">
+                     <children>
+                        <Label fx:id="brandOfStockError" prefHeight="30.0" prefWidth="421.0" textFill="RED">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="Number of stock:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="numberOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="390.0">
+                     <children>
+                        <Label fx:id="numberOfStockError" prefHeight="30.0" prefWidth="390.0" textFill="RED">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Label text="Unit price">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="unitPrice" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="390.0">
+                     <children>
+                        <Label fx:id="unitPriceError" prefHeight="30.0" prefWidth="401.0" textFill="RED">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="154.0" text="Add stock">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Button layoutX="166.0" layoutY="-167.0" mnemonicParsing="false" text="Button" />
+   </children>
 </AnchorPane>

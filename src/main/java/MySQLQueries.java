@@ -92,4 +92,11 @@ public class MySQLQueries {
         }
         deleteClient.executeUpdate();
     }
+
+    public static void addStock(ArrayList<String> stockInformation) throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        String sql = "insert into stock() values (?,?,?,?)";
+        PreparedStatement addStock = connection.prepareStatement(sql);
+
+    }
 }
