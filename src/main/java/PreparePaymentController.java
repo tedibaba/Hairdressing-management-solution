@@ -1,6 +1,8 @@
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -25,15 +27,17 @@ public class PreparePaymentController implements Initializable {
     @FXML TextField eighthNumber;
     @FXML TextField ninthNumber;
     @FXML TextField tenthNumber;
-    @FXML TextField employeeName;
-    @FXML TextField productsBought;
-    @FXML TextField servicesDone;
+
     @FXML TextArea productList;
-    @FXML TextArea serviceArea;
+    @FXML TextArea serviceList;
+
+    @FXML ComboBox<String> servicer;
+    @FXML ComboBox<String> serviceDone;
+    @FXML ComboBox<String> productBought;
 
     //Keeping track of what has been bought by the client
-    String[] serviceDone = {};
-    String[] productBought = {};
+    String[] servicesDone = {};
+    String[] productsBought = {};
 
     HashMap<String, ArrayList<Float>> products;
     HashMap<String, Integer> services;
@@ -59,9 +63,10 @@ public class PreparePaymentController implements Initializable {
         }
     }
 
+
     @FXML
     private void addService(){
-
+        String service = serviceDone.getValue();
     }
 
     @FXML
@@ -86,5 +91,16 @@ public class PreparePaymentController implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        Platform.runLater(() -> {
+            for (String product : products.keySet()){
+                productBought.getItems().add(product);
+            }
+           for (String service : services.keySet()){
+               serviceDone.getItems().add(service);
+           }
+           for (String employee : employees){
+               servicer.getItems().add(employee);
+           }
+        });
     }
 }
