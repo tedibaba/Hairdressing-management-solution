@@ -1,5 +1,7 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class MySQLQueries {
 
@@ -93,10 +95,60 @@ public class MySQLQueries {
         deleteClient.executeUpdate();
     }
 
+    //Add stock into the database
     public static void addStock(ArrayList<String> stockInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "insert into stock() values (?,?,?,?)";
+        String sql = "insert into stock(TypeOfStock, BrandOfStock, NumberOfStock, UnitPrice) values (?,?,?,?)";
         PreparedStatement addStock = connection.prepareStatement(sql);
+        for(int i = 0; i < stockInformation.size() ; i++){
+            //If it is number of stock, the value needs to be converted into an int before being added into the prepared statement
+            switch (i){
+                case 2:
+                    addStock.setInt(3, Integer.valueOf(stockInformation.get(2)));
+                case 3:
+                    addStock.setFloat(4, Float.valueOf(stockInformation.get(3)));
+                default:
+                    addStock.setString(i + 1, stockInformation.get(i));
+            }
+        addStock.executeUpdate();
+        }
+    }
 
+    //Get all employee names in the database
+    public static ArrayList<String> getEmployeeNames() throws SQLException, ClassNotFoundException {
+        ArrayList<String> employeeNames = new ArrayList<>();
+        Connection connection = connectToDatabase();
+        String sql = "Select name from employee";
+        Statement getEmployees = connection.prepareStatement(sql);
+        ResultSet rs = getEmployees.executeQuery(sql);
+        while (rs.next()){
+            employeeNames.add(rs.getString(1));
+        }
+        return employeeNames;
+    }
+
+    //Get stock and their quantities from the database
+    public static HashMap<String, ArrayList<Float>> getStock() throws SQLException, ClassNotFoundException {
+        HashMap<String, ArrayList<Float>> stock = new HashMap<>();
+        Connection connection = connectToDatabase();
+        String sql = "Select TypeStock, NumberOfStock, UnitPrice from stock";
+        Statement getStock = connection.prepareStatement(sql);
+        ResultSet rs = getStock.executeQuery(sql);
+        while (rs.next()){
+            stock.put(rs.getString(1), new ArrayList<Float>(Arrays.asList(rs.getFloat(2), rs.getFloat(3))));
+        }
+        return stock;
+    }
+
+    public static HashMap<String, Integer> getServices() throws SQLException, ClassNotFoundException {
+        HashMap<String, Integer> services = new HashMap<>();
+        Connection connection = connectToDatabase();
+        String sql = "Select * from Services";
+        Statement getServices = connection.prepareStatement(sql);
+        ResultSet rs = getServices.executeQuery(sql);
+        while (rs.next()){
+            services.put(rs.getString(1), rs.getInt(2));
+        }
+        return services;
     }
 }
