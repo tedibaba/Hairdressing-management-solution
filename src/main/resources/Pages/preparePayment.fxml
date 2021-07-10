@@ -160,14 +160,14 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </HBox.margin>
       </VBox>
-      <VBox prefHeight="1000.0" prefWidth="518.0">
+      <VBox alignment="CENTER" prefHeight="1000.0" prefWidth="518.0">
          <children>
             <Label text="Services done">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextArea fx:id="serviceList" prefHeight="430.0" prefWidth="453.0">
+            <TextArea fx:id="serviceList" editable="false" prefHeight="430.0" prefWidth="453.0">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -177,7 +177,12 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextArea fx:id="productList" prefHeight="456.0" prefWidth="453.0" />
+            <TextArea fx:id="productList" editable="false" prefHeight="456.0" prefWidth="453.0" />
+            <Button mnemonicParsing="false" text="Delete purchase">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
          <HBox.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

@@ -1,10 +1,13 @@
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -97,6 +100,7 @@ public class AddStockController implements Initializable {
     @FXML
     private void addStock() throws SQLException, ClassNotFoundException {
         if(validated.stream().distinct().count() <= 1) {
+            System.out.println("WHOOO");
             ArrayList<String> stockInformation = new ArrayList<>();
             stockInformation.add(typeOfStock.getValue());
             stockInformation.add(brandOfStock.getText());
@@ -104,6 +108,14 @@ public class AddStockController implements Initializable {
             stockInformation.add(unitPrice.getText());
             MySQLQueries.addStock(stockInformation);
         }
+    }
+
+    //Return to the home page
+    @FXML
+    private void returnToHome(ActionEvent event) throws IOException {
+        SwitchScenes switchScenes = new SwitchScenes();
+        Stage stage = switchScenes.switchScene(event, "Pages/home.fxml");
+        stage.show();
     }
 
     @Override

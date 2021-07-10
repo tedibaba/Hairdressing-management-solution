@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,13 +50,19 @@ public class MySQLQueries {
     }
 
     //Adding an employee to the database
-    public static void addEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException {
+    public static void addEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException, ParseException {
         Connection connection = connectToDatabase();
         String sql = "insert into employee(EmployeeName, EmailAddress, PhoneNumber, DateOfBirth, Salary, EmergencyContact) values (?, ?, ?, ?, ?, ?)";
         PreparedStatement addEmployee = connection.prepareStatement(sql);
         for (int i = 0; i < employeeInformation.size(); i++){
             if (i == 4){
-                addEmployee.setString(i + 1, employeeInformation.get(i));
+                addEmployee.setInt(i + 1, Integer.valueOf(employeeInformation.get(i)));
+                continue;
+            }
+            if (i == 3){
+                java.util.Date dob = new SimpleDateFormat("dd/MM/yyyy").parse(employeeInformation.get(i));
+                java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
+                addEmployee.setDate(i + 1, sqlDob);
                 continue;
             }
             addEmployee.setString(i + 1, employeeInformation.get(i));
@@ -104,21 +112,24 @@ public class MySQLQueries {
             //If it is number of stock, the value needs to be converted into an int before being added into the prepared statement
             switch (i){
                 case 2:
-                    addStock.setInt(3, Integer.valueOf(stockInformation.get(2)));
+                    addStock.setInt(i + 1, Integer.valueOf(stockInformation.get(i)));
+                    break;
                 case 3:
-                    addStock.setFloat(4, Float.valueOf(stockInformation.get(3)));
+                    addStock.setFloat( i + 1, Float.valueOf(stockInformation.get(i)));
+                    break;
                 default:
                     addStock.setString(i + 1, stockInformation.get(i));
             }
-        addStock.executeUpdate();
         }
+        addStock.executeUpdate();
+
     }
 
     //Get all employee names in the database
     public static ArrayList<String> getEmployeeNames() throws SQLException, ClassNotFoundException {
         ArrayList<String> employeeNames = new ArrayList<>();
         Connection connection = connectToDatabase();
-        String sql = "Select name from employee";
+        String sql = "Select EmployeeName from employee";
         Statement getEmployees = connection.prepareStatement(sql);
         ResultSet rs = getEmployees.executeQuery(sql);
         while (rs.next()){
@@ -128,27 +139,47 @@ public class MySQLQueries {
     }
 
     //Get stock and their quantities from the database
-    public static HashMap<String, ArrayList<Float>> getStock() throws SQLException, ClassNotFoundException {
-        HashMap<String, ArrayList<Float>> stock = new HashMap<>();
+    //Order of output: (typeOfStock, (brandOfStock, numberOfStock, unitPrice, ID number))
+    public static HashMap<String, ArrayList<String>> getStock() throws SQLException, ClassNotFoundException {
+        HashMap<String, ArrayList<String>> stock = new HashMap<>();
         Connection connection = connectToDatabase();
-        String sql = "Select TypeStock, NumberOfStock, UnitPrice from stock";
+        String sql = "Select * from stock";
         Statement getStock = connection.prepareStatement(sql);
         ResultSet rs = getStock.executeQuery(sql);
         while (rs.next()){
-            stock.put(rs.getString(1), new ArrayList<Float>(Arrays.asList(rs.getFloat(2), rs.getFloat(3))));
+            stock.put(rs.getString(1), new ArrayList<String>(Arrays.asList(rs.getString(2), String.valueOf(rs.getInt(3)), String.valueOf(rs.getFloat(4)), rs.getString(5))));
         }
         return stock;
     }
 
-    public static HashMap<String, Integer> getServices() throws SQLException, ClassNotFoundException {
-        HashMap<String, Integer> services = new HashMap<>();
+    //Getting the available services from the database
+    //Order of output: (serviceName, (price, ID number))
+    public static HashMap<String, ArrayList<String>> getServices() throws SQLException, ClassNotFoundException {
+        HashMap<String, ArrayList<String>> services = new HashMap<>();
         Connection connection = connectToDatabase();
-        String sql = "Select * from Services";
+        String sql = "Select * from services";
         Statement getServices = connection.prepareStatement(sql);
         ResultSet rs = getServices.executeQuery(sql);
         while (rs.next()){
-            services.put(rs.getString(1), rs.getInt(2));
+            services.put(rs.getString(1), new ArrayList<String>(Arrays.asList(String.valueOf(rs.getInt(2)), rs.getString(3))));
         }
         return services;
+    }
+
+    //Returns all the clients in the database along with their information
+    //Output order: (indexOfClient, (clientName, emailAddress, phoneNumber, productHistory, serviceHistory))
+    //Index of client is only used for sorting the clients
+    public static HashMap<Integer, ArrayList<String>> getClients() throws SQLException, ClassNotFoundException {
+        HashMap<Integer, ArrayList<String>> clientInformation = new HashMap<>();
+        Connection connection = connectToDatabase();
+        String sql = "Select * from customer";
+        Statement getClients = connection.prepareStatement(sql);
+        ResultSet rs = getClients.executeQuery(sql);
+        int i = 0;
+        while (rs.next()){
+            clientInformation.put(i, new ArrayList<String>(Arrays.asList(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5))));
+            i++;
+        }
+        return clientInformation;
     }
 }

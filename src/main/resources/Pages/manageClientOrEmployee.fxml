@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManageClientAndEmployeeController">
+<AnchorPane fx:id="page" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManageClientAndEmployeeController">
    <children>
       <ImageView fitHeight="1010.0" fitWidth="536.0" layoutX="-11.0" layoutY="-10.0" pickOnBounds="true">
          <image>
@@ -84,7 +84,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <Label text="What is their phone number?">
+                  <Label text="Phone number?">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -111,14 +111,14 @@
                         </TextField>
                         <TextField fx:id="eighthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
                         <TextField fx:id="ninthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-                        <TextField fx:id="tenthNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="tenthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <Label text="What is their date of birth?">
+                  <Label text="Date of birth?">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -221,7 +221,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" text="Do operation">
+            <Button mnemonicParsing="false" onAction="#getAllEnteredInformation" text="Do operation">
                <font>
                   <Font size="24.0" />
                </font>

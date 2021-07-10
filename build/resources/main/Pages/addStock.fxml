@@ -145,7 +145,7 @@
                   </HBox>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="154.0" text="Add stock">
+            <Button mnemonicParsing="false" onAction="#addStock" prefHeight="70.0" prefWidth="154.0" text="Add stock">
                <font>
                   <Font size="24.0" />
                </font>
