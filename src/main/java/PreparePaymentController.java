@@ -87,7 +87,13 @@ public class PreparePaymentController implements Initializable {
 
     @FXML
     private void calculateAmountDue(){
-        
+        double total = 0.0;
+        for (String service : servicesDone){
+            total += Double.valueOf(services.get(service).get(0));
+        }
+        for (String product : productsBought){
+            total += Double.valueOf(products.get(product).get(0));
+        }
     }
 
     @Override

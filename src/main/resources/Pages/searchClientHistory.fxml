@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SearchClientHistoryController">
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../css/searchClientHistory.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SearchClientHistoryController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="1749.0" spacing="30.0">
          <children>
@@ -19,7 +19,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0">
+                        <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="0.0" prefWidth="0.0">
                            <graphic>
                               <ImageView blendMode="DARKEN" fitHeight="76.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,7 +55,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField>
+                  <TextField fx:id="clientName">
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
@@ -71,28 +71,26 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="51.0" prefWidth="391.0">
+                  <TextField fx:id="phoneNumber" prefHeight="51.0" prefWidth="391.0">
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" prefHeight="666.0" prefWidth="1402.0">
+            <Button fx:id="searchClient" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" text="Search for client" />
+            <VBox alignment="TOP_CENTER" prefHeight="631.0" prefWidth="1296.0">
                <children>
-                  <Label text="Results">
+                  <Label text="Clients">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Yu Mincho Regular" size="24.0" />
                      </font>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Label>
-                  <ListView prefHeight="563.0" prefWidth="1002.0">
-                     <padding>
-                        <Insets left="50.0" right="50.0" />
-                     </padding></ListView>
+                  <ListView fx:id="clientList" prefHeight="507.0" prefWidth="564.0" />
                </children>
                <padding>
-                  <Insets left="200.0" right="200.0" top="30.0" />
+                  <Insets left="200.0" right="200.0" />
                </padding>
             </VBox>
          </children>

@@ -182,4 +182,45 @@ public class MySQLQueries {
         }
         return clientInformation;
     }
+
+    //Adding the time that the purchase was done. This information will be used in graphing
+    public static void addTimeOfPurchase(Date date, String day) throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        String sql = "insert into customerTimes(TimeDone, DayDone) values (?,?)";
+        PreparedStatement addTimeOfService = connection.prepareStatement(sql);
+        addTimeOfService.setDate(1, date);
+        addTimeOfService.setString(2, day);
+        addTimeOfService.executeUpdate();
+    }
+
+    //Getting the previous client purchases
+    //Output order : (ProductHistory, ServiceHistory)
+    private static ArrayList<String> getClientPurchases(String clientName, String phoneNumber) throws SQLException, ClassNotFoundException {
+        ArrayList<String> clientPurchases = new ArrayList<>();
+        Connection connection = connectToDatabase();
+        String sql = "Select ProductHistory, ServiceHistory from customer where CustomerName = ? and PhoneNumber = ?";
+        PreparedStatement getClientPurchases = connection.prepareStatement(sql);
+        getClientPurchases.setString(1, clientName);
+        getClientPurchases.setString(2, phoneNumber);
+        ResultSet rs = getClientPurchases.executeQuery(sql);
+        while(rs.next()){
+            clientPurchases.add(rs.getString(1));
+            clientPurchases.add(rs.getString(2));
+        }
+        return clientPurchases;
+    }
+
+    //Updating what the client has purchased
+    public static void updateClientPurchases(String services, String products, String clientName, String phoneNumber) throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        ArrayList<String> previousClientPurchases = getClientPurchases(clientName, phoneNumber);
+        //Updating the previous history with the new history
+        previousClientPurchases.set(0, previousClientPurchases.get(0) + products);
+        previousClientPurchases.set(1, previousClientPurchases.get(1) + services);
+        String sql = "Update customer set ProductHistory = ? and ServiceHistory = ? where CustomerName = ? and PhoneNumber = ?";
+        PreparedStatement updateClientPurchases = connection.prepareStatement(sql);
+        updateClientPurchases.setString(1, previousClientPurchases.get(0));
+        updateClientPurchases.setString(2, previousClientPurchases.get(1));
+        updateClientPurchases.executeUpdate();
+    }
 }
