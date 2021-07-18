@@ -77,6 +77,7 @@
                      </font></TextField>
                </children>
             </HBox>
+            <Button fx:id="searchClient" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" text="Search for client" />
             <VBox alignment="TOP_CENTER" prefHeight="631.0" prefWidth="1296.0">
                <children>
                   <Label text="Clients">
@@ -89,7 +90,7 @@
                   <ListView fx:id="clientList" prefHeight="507.0" prefWidth="564.0" />
                </children>
                <padding>
-                  <Insets left="200.0" right="200.0" top="30.0" />
+                  <Insets left="200.0" right="200.0" />
                </padding>
             </VBox>
          </children>

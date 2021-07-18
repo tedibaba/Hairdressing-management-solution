@@ -9,8 +9,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.apache.commons.lang3.ArrayUtils;
 
+import javax.swing.text.DateFormatter;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +36,6 @@ public class PreparePaymentController implements Initializable {
 
     @FXML TextArea productList;
     @FXML TextArea serviceList;
-
     @FXML ComboBox<String> servicer;
     @FXML ComboBox<String> serviceDone;
     @FXML ComboBox<String> productBought;
@@ -39,10 +43,12 @@ public class PreparePaymentController implements Initializable {
     //Keeping track of what has been bought by the client
     ArrayList<String> servicesDone = new ArrayList<>();
     ArrayList<String> productsBought = new ArrayList<>();
+    ArrayList<String> servicesId = new ArrayList<>();
+    ArrayList<String> productsId = new ArrayList<>();
 
     HashMap<String, ArrayList<String>> products;
     HashMap<String, ArrayList<String>> services;
-    ArrayList<String> employees;
+    HashMap<String, String> employees;
 
     TextField[] phoneNumber;
     {
@@ -55,45 +61,69 @@ public class PreparePaymentController implements Initializable {
     @FXML
     private void changeToNextNumber(KeyEvent event){
         if (event.getCode() != KeyCode.ENTER){
-            TextField enteredField = (TextField) event.getSource();
-            String fieldId = enteredField.getId();
-            System.out.println(fieldId);
-            int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
-            System.out.println(indexOfField);
+            TextField enteredField = (TextField) event.getSource();int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
             phoneNumber[indexOfField + 1].requestFocus();
         }
     }
 
-    //Adding the service into the side list and also appending it to the list so it can be used to calculate the amount due
+    //Adding the service into the serviceList and the serviceBought list
     @FXML
     private void addService(){
         serviceList.setText("");
         String service = serviceDone.getValue();
         servicesDone.add(service);
+        System.out.println(service);
+        servicesId.add(services.get(service).get(1));
         for (String serviceDone : servicesDone){
             serviceList.appendText(serviceDone + '\n');
         }
     }
 
+    //Adding the product to the productList and the productBought list
     @FXML
     private void addProduct(){
         productList.setText("");
         String product =  productBought.getValue();
-        productsBought.add(product);
+        String[] productParts = product.split(" ", 2);
+        productsBought.add(productParts[1]);
+        System.out.println(productParts[1]);
+        productsId.add(products.get(productParts[1]).get(3));
         for (String productBought : productsBought){
             productList.appendText(productBought + '\n');
         }
     }
 
+    //Calculating the amount that the customer needs to pay and then adding that to the database
     @FXML
-    private void calculateAmountDue(){
+    private void calculateAmountDue() throws SQLException, ClassNotFoundException {
+        String clientName = this.clientName.getText();
+        String phoneNumber = "";
+        for (TextField number : this.phoneNumber){
+            phoneNumber += number.getText();
+        }
         double total = 0.0;
         for (String service : servicesDone){
             total += Double.valueOf(services.get(service).get(0));
         }
         for (String product : productsBought){
-            total += Double.valueOf(products.get(product).get(0));
+            total += Double.valueOf(products.get(product).get(2));
         }
+        StringBuilder products = new StringBuilder();
+        StringBuilder services = new StringBuilder();
+        for (String number : productsId){
+            products.append(number + ' ');
+        }
+        for (String number : servicesId){
+            services.append(number + ' ');
+        }
+
+        MySQLQueries.updateClientPurchases(services.toString(), services.toString(), employees.get(servicer.getValue()), phoneNumber, clientName);
+        LocalDateTime localDate = LocalDateTime.now();
+        DayOfWeek dow = localDate.getDayOfWeek();
+        String day = dow.toString();
+        MySQLQueries.addTimeOfPurchase(day);
+
+        System.out.println(total);
     }
 
     @Override
@@ -115,7 +145,7 @@ public class PreparePaymentController implements Initializable {
            for (String service : services.keySet()){
                serviceDone.getItems().add(service);
            }
-           for (String employee : employees){
+           for (String employee : employees.keySet()){
                servicer.getItems().add(employee);
            }
         });

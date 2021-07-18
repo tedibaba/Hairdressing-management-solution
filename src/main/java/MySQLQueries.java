@@ -126,14 +126,15 @@ public class MySQLQueries {
     }
 
     //Get all employee names in the database
-    public static ArrayList<String> getEmployeeNames() throws SQLException, ClassNotFoundException {
-        ArrayList<String> employeeNames = new ArrayList<>();
+    //Order of output: (ID number, clientName)
+    public static HashMap<String, String> getEmployeeNames() throws SQLException, ClassNotFoundException {
+        HashMap<String, String> employeeNames = new HashMap<>();
         Connection connection = connectToDatabase();
-        String sql = "Select EmployeeName from employee";
+        String sql = "Select EmployeeName, ID from employee";
         Statement getEmployees = connection.prepareStatement(sql);
         ResultSet rs = getEmployees.executeQuery(sql);
         while (rs.next()){
-            employeeNames.add(rs.getString(1));
+            employeeNames.put(rs.getString(1), rs.getString(2));
         }
         return employeeNames;
     }
@@ -184,12 +185,11 @@ public class MySQLQueries {
     }
 
     //Adding the time that the purchase was done. This information will be used in graphing
-    public static void addTimeOfPurchase(Date date, String day) throws SQLException, ClassNotFoundException {
+    public static void addTimeOfPurchase(String day) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "insert into customerTimes(TimeDone, DayDone) values (?,?)";
+        String sql = "insert into customerTimes(DayDone) values (?)";
         PreparedStatement addTimeOfService = connection.prepareStatement(sql);
-        addTimeOfService.setDate(1, date);
-        addTimeOfService.setString(2, day);
+        addTimeOfService.setString(1, day);
         addTimeOfService.executeUpdate();
     }
 
@@ -198,29 +198,51 @@ public class MySQLQueries {
     private static ArrayList<String> getClientPurchases(String clientName, String phoneNumber) throws SQLException, ClassNotFoundException {
         ArrayList<String> clientPurchases = new ArrayList<>();
         Connection connection = connectToDatabase();
-        String sql = "Select ProductHistory, ServiceHistory from customer where CustomerName = ? and PhoneNumber = ?";
+        String sql = "Select ProductHistory, ServiceHistory, EmployeeHistory from customer where PhoneNumber = ? and CustomerName = ?";
         PreparedStatement getClientPurchases = connection.prepareStatement(sql);
-        getClientPurchases.setString(1, clientName);
-        getClientPurchases.setString(2, phoneNumber);
-        ResultSet rs = getClientPurchases.executeQuery(sql);
+        getClientPurchases.setString(1, phoneNumber);
+        getClientPurchases.setString(2, clientName);
+        ResultSet rs = getClientPurchases.executeQuery();
         while(rs.next()){
-            clientPurchases.add(rs.getString(1));
-            clientPurchases.add(rs.getString(2));
+            System.out.println(rs.getString(1) + " " + rs.getString(2) + ' ' + rs.getString(3));
+                if(rs.getString(1) == null || rs.getString(1).equals("")) {
+                    clientPurchases.add("P ");
+                } else {
+                    clientPurchases.add(rs.getString(1));
+                }
+
+                if(rs.getString(2) == null || rs.getString(2).equals("")) {
+                    clientPurchases.add("P ");
+                } else {
+                    clientPurchases.add(rs.getString(2));
+                }
+                if(rs.getString(3) == null || rs.getString(3).equals("")) {
+                    clientPurchases.add("P ");
+                } else {
+                    clientPurchases.add(rs.getString(3));
+                }
+            System.out.println(clientPurchases);
         }
         return clientPurchases;
     }
 
     //Updating what the client has purchased
-    public static void updateClientPurchases(String services, String products, String clientName, String phoneNumber) throws SQLException, ClassNotFoundException {
+    public static void updateClientPurchases(String services, String products, String employeeId, String phoneNumber, String clientName) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         ArrayList<String> previousClientPurchases = getClientPurchases(clientName, phoneNumber);
+        System.out.println(previousClientPurchases);
         //Updating the previous history with the new history
+
         previousClientPurchases.set(0, previousClientPurchases.get(0) + products);
         previousClientPurchases.set(1, previousClientPurchases.get(1) + services);
-        String sql = "Update customer set ProductHistory = ? and ServiceHistory = ? where CustomerName = ? and PhoneNumber = ?";
+        previousClientPurchases.set(2, previousClientPurchases.get(2) + employeeId + ' ');
+
+        String sql = "Update customer set ProductHistory = ?, ServiceHistory = ?, EmployeeHistory = ? where PhoneNumber = ?";
         PreparedStatement updateClientPurchases = connection.prepareStatement(sql);
         updateClientPurchases.setString(1, previousClientPurchases.get(0));
         updateClientPurchases.setString(2, previousClientPurchases.get(1));
+        updateClientPurchases.setString(3, previousClientPurchases.get(2));
+        updateClientPurchases.setString(4, phoneNumber);
         updateClientPurchases.executeUpdate();
     }
 }

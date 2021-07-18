@@ -4,83 +4,98 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1000.0" maxWidth="1920.0" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewBusinessInformationController">
+
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="666.0" layoutY="27.0" text="Information about the salon">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <Button layoutX="1679.0" layoutY="40.0" mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
-         <graphic>
-            <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/Back%20arrow.jpg" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Label alignment="CENTER" layoutX="1700.0" layoutY="138.0" prefHeight="22.0" prefWidth="100.0" text="Return">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label layoutX="906.0" layoutY="212.0" text="Salon name:">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="salonName" alignment="TOP_LEFT" layoutX="1085.0" layoutY="218.0" prefHeight="141.0" prefWidth="593.0" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="885.0" layoutY="374.0" text="Business ABN: ">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="businessABN" alignment="TOP_LEFT" layoutX="1093.0" layoutY="381.0" prefHeight="141.0" prefWidth="593.0" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="783.0" layoutY="528.0" text="Salon owner's name:">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="salonOwner" alignment="TOP_LEFT" layoutX="1074.0" layoutY="534.0" prefHeight="141.0" prefWidth="593.0" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="766.0" layoutY="711.0" text="Salon phone number:">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="salonPhoneNumber" alignment="TOP_LEFT" layoutX="1068.0" layoutY="713.0" prefHeight="141.0" prefWidth="593.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="865.0" layoutY="878.0" text="Salon address:">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label fx:id="salonAddress" alignment="TOP_LEFT" layoutX="1078.0" layoutY="885.0" prefHeight="141.0" prefWidth="593.0" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="625.0" fitWidth="1080.0" layoutX="-293.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+      <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1742.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
+                           <graphic>
+                              <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/Back%20arrow.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="100.0" text="Return">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label text="Information about the salon">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Salon name:">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="salonName" alignment="TOP_CENTER" prefHeight="141.0" prefWidth="593.0" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Business ABN: ">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="businessABN" alignment="TOP_CENTER" prefHeight="141.0" prefWidth="593.0" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Salon owner's name:">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="salonOwner" alignment="TOP_CENTER" prefHeight="141.0" prefWidth="593.0" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Salon phone number:">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="salonPhoneNumber" alignment="TOP_CENTER" prefHeight="141.0" prefWidth="593.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Salon address:">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="salonAddress" alignment="TOP_CENTER" prefHeight="141.0" prefWidth="593.0" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <ImageView fitHeight="1072.0" fitWidth="518.0" pickOnBounds="true">
          <image>
-            <Image url="@../Images/View%20business%20picture.jpg" />
+            <Image url="@../Images/Manage%20client%20or%20employee.jpg" />
          </image>
       </ImageView>
    </children>
-</AnchorPane>
+</HBox>

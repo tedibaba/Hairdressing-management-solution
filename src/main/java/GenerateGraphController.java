@@ -1,2 +1,2 @@
-public class `GenerateGraphController {
+public class GenerateGraphController {
 }
