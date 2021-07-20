@@ -80,6 +80,7 @@ public class SearchClientHistoryController implements Initializable {
         quicksortClients(clients, 0, clients.size() - 1);
         ArrayList<String> client = binarySearchForClient(clients, 0, clients.size() - 1, clientName + phoneNumber);
         //Displaying the information on a new screen
+        Client clientInformation = new Client(client);
         Parent root = FXMLLoader.load(getClass().getResource("clientInformation.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();

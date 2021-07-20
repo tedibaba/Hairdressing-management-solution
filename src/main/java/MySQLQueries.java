@@ -140,35 +140,47 @@ public class MySQLQueries {
     }
 
     //Get stock and their quantities from the database
-    //Order of output: (typeOfStock, (brandOfStock, numberOfStock, unitPrice, ID number))
-    public static HashMap<String, ArrayList<String>> getStock() throws SQLException, ClassNotFoundException {
+    //The search boolean is checking whether the function calling it is related to the search function
+    //Order of output: (typeOfStock, (brandOfStock, numberOfStock, unitPrice, ID number)) if search is false
+    //Order of output: (Id number, (typeOfStock, brandOfStock))
+    public static HashMap<String, ArrayList<String>> getStock(Boolean search) throws SQLException, ClassNotFoundException {
         HashMap<String, ArrayList<String>> stock = new HashMap<>();
         Connection connection = connectToDatabase();
         String sql = "Select * from stock";
         Statement getStock = connection.prepareStatement(sql);
         ResultSet rs = getStock.executeQuery(sql);
         while (rs.next()){
-            stock.put(rs.getString(1), new ArrayList<String>(Arrays.asList(rs.getString(2), String.valueOf(rs.getInt(3)), String.valueOf(rs.getFloat(4)), rs.getString(5))));
+            if (search == false){
+                stock.put(rs.getString(1), new ArrayList<String>(Arrays.asList(rs.getString(2), String.valueOf(rs.getInt(3)), String.valueOf(rs.getFloat(4)), rs.getString(5))));
+            } else {
+                stock.put(rs.getString(5), new ArrayList<String>(Arrays.asList(rs.getString(1), rs.getString(2))));
+            }
         }
         return stock;
     }
 
     //Getting the available services from the database
-    //Order of output: (serviceName, (price, ID number))
-    public static HashMap<String, ArrayList<String>> getServices() throws SQLException, ClassNotFoundException {
+    //The search boolean is checking whether the function calling it is from the searchClient page.
+    //Order of output: (serviceName, (price, ID number)) if search is false
+    //Order of output: (ID number, (serviceName)) if search is true
+    public static HashMap<String, ArrayList<String>> getServices(Boolean search) throws SQLException, ClassNotFoundException {
         HashMap<String, ArrayList<String>> services = new HashMap<>();
         Connection connection = connectToDatabase();
         String sql = "Select * from services";
         Statement getServices = connection.prepareStatement(sql);
         ResultSet rs = getServices.executeQuery(sql);
         while (rs.next()){
-            services.put(rs.getString(1), new ArrayList<String>(Arrays.asList(String.valueOf(rs.getInt(2)), rs.getString(3))));
+            if (search == false){
+                services.put(rs.getString(1), new ArrayList<String>(Arrays.asList(String.valueOf(rs.getInt(2)), rs.getString(3))));
+            } else {
+                services.put(rs.getString(3), new ArrayList<String>(Arrays.asList(rs.getString(1))));
+            }
         }
         return services;
     }
 
     //Returns all the clients in the database along with their information
-    //Output order: (indexOfClient, (clientName, emailAddress, phoneNumber, productHistory, serviceHistory))
+    //Output order: (indexOfClient, (clientName, emailAddress, phoneNumber, productHistory, serviceHistory, employeeHistory))
     //Index of client is only used for sorting the clients
     public static HashMap<Integer, ArrayList<String>> getClients() throws SQLException, ClassNotFoundException {
         HashMap<Integer, ArrayList<String>> clientInformation = new HashMap<>();
@@ -176,10 +188,8 @@ public class MySQLQueries {
         String sql = "Select * from customer";
         Statement getClients = connection.prepareStatement(sql);
         ResultSet rs = getClients.executeQuery(sql);
-        int i = 0;
         while (rs.next()){
-            clientInformation.put(i, new ArrayList<String>(Arrays.asList(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5))));
-            i++;
+            clientInformation.put(rs.getInt(7), new ArrayList<String>(Arrays.asList(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6))));
         }
         return clientInformation;
     }
@@ -245,4 +255,6 @@ public class MySQLQueries {
         updateClientPurchases.setString(4, phoneNumber);
         updateClientPurchases.executeUpdate();
     }
+
+
 }

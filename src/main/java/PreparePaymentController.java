@@ -96,12 +96,28 @@ public class PreparePaymentController implements Initializable {
     //Calculating the amount that the customer needs to pay and then adding that to the database
     @FXML
     private void calculateAmountDue() throws SQLException, ClassNotFoundException {
+        //Existence check on the clientName field
+        if (this.clientName.getText().equals("") == true){
+            return;
+        }
         String clientName = this.clientName.getText();
         String phoneNumber = "";
         for (TextField number : this.phoneNumber){
+            //Existence and type checking each number of the phone number
+            try{
+                Integer.valueOf(number.getText());
+            } catch (NumberFormatException e){
+                System.out.println("FAT");
+                return;
+            }
             phoneNumber += number.getText();
         }
         double total = 0.0;
+        //Existence checking both services done and products bought together as it is possible just to buy one and not the other
+        if (servicesDone.isEmpty() && productsBought.isEmpty()){
+            System.out.print("Customer should have done at least one thing!");
+            return;
+        }
         for (String service : servicesDone){
             total += Double.valueOf(services.get(service).get(0));
         }
@@ -131,8 +147,8 @@ public class PreparePaymentController implements Initializable {
         try {
             //Getting the employee, services, and products list so the amount due can be calculated
             employees = MySQLQueries.getEmployeeNames();
-            services = MySQLQueries.getServices();
-            products = MySQLQueries.getStock();
+            services = MySQLQueries.getServices(false);
+            products = MySQLQueries.getStock(false);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

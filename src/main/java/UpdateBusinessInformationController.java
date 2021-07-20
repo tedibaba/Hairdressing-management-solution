@@ -45,16 +45,14 @@ public class UpdateBusinessInformationController implements Initializable {
 
     @FXML
     private void updateCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
-//        //!!!!!! need to check if the phone number is able to be converted into a number
-//        try {
-//            for (TextField number : phoneNumber){
-//                 Integer.valueOf(number.getText());
-//            }
-//        } catch (IllegalFormatConversionException e){
-//
-//        }
-//
+        //!!!!!! need to check if the phone number is able to be converted into a number
+        try {
+            for (TextField number : phoneNumber){
+                 Integer.valueOf(number.getText());
+            }
+        } catch (NumberFormatException e){
 
+        }
         
         //Get all the new information from the user
         for (int i = 0; i < fields.length ; i++ ){
