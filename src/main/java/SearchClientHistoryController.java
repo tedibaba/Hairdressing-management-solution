@@ -59,6 +59,7 @@ public class SearchClientHistoryController implements Initializable {
     private ArrayList<String> binarySearchForClient(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high, String searchClient){
         if (high >= low){
             int mid = low + (high - low) / 2;
+            System.out.println(clientInformation.get(mid).get(0) + clientInformation.get(mid).get(2));
             if ((clientInformation.get(mid).get(0) + clientInformation.get(mid).get(2)).equals(searchClient)){
                 return clientInformation.get(mid);
             }
@@ -77,11 +78,11 @@ public class SearchClientHistoryController implements Initializable {
     private void searchClient() throws IOException {
         String clientName = this.clientName.getText();
         String phoneNumber = this.phoneNumber.getText();
-        quicksortClients(clients, 0, clients.size() - 1);
-        ArrayList<String> client = binarySearchForClient(clients, 0, clients.size() - 1, clientName + phoneNumber);
+        ArrayList<String> client = binarySearchForClient(clients, 0, clients.size(), clientName + phoneNumber);
         //Displaying the information on a new screen
+        System.out.println(client);
         Client clientInformation = new Client(client);
-        Parent root = FXMLLoader.load(getClass().getResource("clientInformation.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Pages/clientInformation.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -107,7 +108,7 @@ public class SearchClientHistoryController implements Initializable {
             e.printStackTrace();
         }
         System.out.println(clients);
-        quicksortClients(clients, 0, clients.size() - 1);
+        quicksortClients(clients, 1, clients.size() );
         System.out.println(clients);
         System.out.println();
         Platform.runLater(() -> {

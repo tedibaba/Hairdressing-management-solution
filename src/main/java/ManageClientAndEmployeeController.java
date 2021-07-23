@@ -58,7 +58,7 @@ public class ManageClientAndEmployeeController implements Initializable {
     //When typing the phone number or date or birth, when a key is pressed, it should automatically shift to the next index
     @FXML
     private void changeToNextNumber(KeyEvent event){
-        if (event.getCode() != KeyCode.ENTER){
+        if (event.getCode() != KeyCode.ENTER || event.getCode() != KeyCode.BACK_SPACE){
             TextField enteredField = (TextField) event.getSource();
             if (Arrays.stream(phoneNumber).anyMatch(enteredField::equals)){
                 String fieldId = enteredField.getId();

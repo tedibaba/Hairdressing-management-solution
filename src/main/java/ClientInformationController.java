@@ -18,11 +18,13 @@ public class ClientInformationController implements Initializable {
     @FXML TextArea productHistory;
     @FXML TextArea serviceHistory;
     @FXML TextArea employeeHistory;
+    //Client object contains all the information that was added from the SearchClientHistoryController
     Client client;
     HashMap<String, ArrayList<String>> services;
     HashMap<String, String> employees;
     HashMap<String, ArrayList<String>> stock;
 
+    //Adding all the client information into the fields
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String productsBought = client.getProductList();
@@ -41,18 +43,39 @@ public class ClientInformationController implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println(employees);
         Platform.runLater(() -> {
             heading.setText("Information about " + client.getClientName());
             phoneNumber.setText(client.getPhoneNumber());
             emailAddress.setText(client.getEmailAddress());
 
             for (String service : serviceSplit){
-                serviceHistory.appendText(service + '\n');
+                if (this.services.containsKey(service)){
+                    serviceHistory.appendText(services.get(service).get(0));
+                    serviceHistory.appendText("\n");
+                } else {
+                    continue;
+                }
             }
-
             for (String employee : employeesSplit){
-                this.employeeHistory.appendText(employee + '\n');
+                if (employees.containsKey(employee)){
+                    this.employeeHistory.appendText(employees.get(employee) + '\n');
+                } else {
+                    continue;
+                }
+            }
+            for (String product : productSplit){
+                System.out.println(product);
+                if (stock.containsKey(product)){
+                    this.productHistory.appendText(stock.get(product).get(1) + ' ' + stock.get(product).get(0) + '\n');
+                }
             }
         });
+    }
+
+    //Returning to the SearchClientHistoryFunction
+    @FXML
+    private void returnToSearchFunction(){
+        Platform.exit();
     }
 }

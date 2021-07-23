@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="760.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="736.0" prefWidth="760.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientInformationController">
    <children>
       <Label fx:id="heading" text="....">
          <font>
@@ -113,7 +113,7 @@
             </HBox>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="160.0" text="Return" />
+      <Button fx:id="returnToSearchFunction" mnemonicParsing="false" prefHeight="48.0" prefWidth="160.0" text="Return" />
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

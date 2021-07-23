@@ -13,6 +13,7 @@ public class MySQLQueries {
         return connection;
     }
 
+
     //Updating information related to the hairdressing salon
     public static void updateBusinessInformation(ArrayList<String> newBusinessInformation) throws SQLException, ClassNotFoundException {
         Connection connection =  connectToDatabase();
@@ -84,7 +85,7 @@ public class MySQLQueries {
     //Deleting a client from the database
     public static void deleteClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "delete from customer where name = ? and PhoneNumber = ?";
+        String sql = "delete from customer where CustomerName = ? and PhoneNumber = ?";
         PreparedStatement deleteClient = connection.prepareStatement(sql);
         for (int i = 0; i < clientInformation.size(); i++){
             deleteClient.setString(i + 1, clientInformation.get(i));
@@ -95,7 +96,7 @@ public class MySQLQueries {
     //Deleting an employee from the database
     public static void deleteEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "delete from employee where name = ? and PhoneNumber = ?";
+        String sql = "delete from employee where EmployeeName = ? and PhoneNumber = ?";
         PreparedStatement deleteClient = connection.prepareStatement(sql);
         for (int i = 0; i < employeeInformation.size(); i++){
             deleteClient.setString(i + 1, employeeInformation.get(i));
@@ -122,11 +123,10 @@ public class MySQLQueries {
             }
         }
         addStock.executeUpdate();
-
     }
 
     //Get all employee names in the database
-    //Order of output: (ID number, clientName)
+   //Order of output: (ID number, clientName)
     public static HashMap<String, String> getEmployeeNames() throws SQLException, ClassNotFoundException {
         HashMap<String, String> employeeNames = new HashMap<>();
         Connection connection = connectToDatabase();
@@ -134,7 +134,7 @@ public class MySQLQueries {
         Statement getEmployees = connection.prepareStatement(sql);
         ResultSet rs = getEmployees.executeQuery(sql);
         while (rs.next()){
-            employeeNames.put(rs.getString(1), rs.getString(2));
+            employeeNames.put(rs.getString(2), rs.getString(1));
         }
         return employeeNames;
     }
@@ -256,5 +256,29 @@ public class MySQLQueries {
         updateClientPurchases.executeUpdate();
     }
 
+    //Adding an appointment to the database
+    public static void makeAppointment(String date, String name, String assignedEmployee, String service, String phoneNumber, String emailAddress) throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        String sql = "inset into appointments(ClientName, EmailAddress, PhoneNumber, DateOfAppointment, ServiceRequired, AssignnedEmployee) values (?,?,?,?,?,?)";
+        PreparedStatement makeAppointment = connection.prepareStatement(sql);
+        makeAppointment.setString(1, name);
+        makeAppointment.setString(2, emailAddress);
+        makeAppointment.setString(3, phoneNumber);
+        makeAppointment.setString(4, date);
+        makeAppointment.setString(5, service);
+        makeAppointment.setString(6, assignedEmployee);
+        makeAppointment.executeUpdate();
 
+    }
+
+    //Deleting an appointment from the database
+    public static void removeAppointment(String date, String name, String phoneNumber) throws SQLException, ClassNotFoundException {
+        Connection connection = connectToDatabase();
+        String sql = "delete from appointments where DateOfAppointment = ? and ClientName = ? and PhoneNumber = ?";
+        PreparedStatement remove = connection.prepareStatement(sql);
+        remove.setString(1, date);
+        remove.setString(2, name);
+        remove.setString(3, phoneNumber);
+
+    }
 }

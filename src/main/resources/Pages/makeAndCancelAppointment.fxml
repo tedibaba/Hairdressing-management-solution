@@ -13,21 +13,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MakeAndCancelAppointmentController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1447.0" spacing="30.0">
+      <VBox fx:id="" alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1447.0" spacing="30.0">
          <children>
-            <Label text="Make or cancel an appointment">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="396.0" />
+                  <Label text="Make or cancel an appointment">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Label text="Book or cancel an appointment">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="bookOrCancel" prefHeight="50.0" prefWidth="310.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox fx:id="bookOrCancel" prefHeight="50.0" prefWidth="310.0" />
+                  <Label fx:id="error1">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date: ">
@@ -35,7 +49,12 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <DatePicker prefHeight="41.0" prefWidth="234.0" />
+                  <DatePicker fx:id="appointmentDate" prefHeight="41.0" prefWidth="234.0" />
+                  <Label fx:id="error2">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -49,6 +68,11 @@
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
+                  <Label fx:id="error3">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <Label text="Assigned employee">
@@ -56,13 +80,31 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="310.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox fx:id="assignedEmployee" prefHeight="50.0" prefWidth="310.0" />
+                  <Label fx:id="error4">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <Label text="Service required">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <ChoiceBox prefHeight="50.0" prefWidth="310.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ChoiceBox fx:id="serviceRequired" prefHeight="50.0" prefWidth="310.0" />
+                  <Label fx:id="error5">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Phone number: ">
@@ -70,10 +112,36 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="51.0" prefWidth="401.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font></TextField>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
+                     <children>
+                        <TextField fx:id="firstNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="secondNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="thirdNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="fourthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="fifthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="sixthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="seventhNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="eighthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="ninthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="tenthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="error6">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -83,19 +151,25 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="51.0" prefWidth="410.0">
+                  <TextField fx:id="emailAddress" prefHeight="51.0" prefWidth="410.0">
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
+                  <Label fx:id="error7">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="229.0" text="Make/Cancel Appointment" />
+            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="229.0" text="Make/Cancel Appointment" />
+            <Label fx:id="error" prefHeight="17.0" prefWidth="260.0" />
          </children>
          <HBox.margin>
             <Insets />
          </HBox.margin>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </VBox>
       <ImageView fitHeight="1080.0" fitWidth="518.0" pickOnBounds="true">

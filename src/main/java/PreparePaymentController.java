@@ -133,7 +133,7 @@ public class PreparePaymentController implements Initializable {
             services.append(number + ' ');
         }
 
-        MySQLQueries.updateClientPurchases(services.toString(), services.toString(), employees.get(servicer.getValue()), phoneNumber, clientName);
+        MySQLQueries.updateClientPurchases(services.toString(), products.toString(), employees.get(servicer.getValue()), phoneNumber, clientName);
         LocalDateTime localDate = LocalDateTime.now();
         DayOfWeek dow = localDate.getDayOfWeek();
         String day = dow.toString();
