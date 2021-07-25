@@ -5,8 +5,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -85,6 +87,14 @@ public class UpdateBusinessInformationController implements Initializable {
             String s = field.getText().substring(0, maximumLength);
             field.setText(s);
         }
+    }
+
+    //Return to the home page
+    @FXML
+    private void returnToHome(ActionEvent event) throws IOException {
+        SwitchScenes switchScenes = new SwitchScenes();
+        Stage stage = switchScenes.switchScene(event, "Pages/home.fxml");
+        stage.show();
     }
 
     //Get the current business information

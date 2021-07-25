@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -9,8 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -64,6 +67,7 @@ public class MakeAndCancelAppointmentController implements Initializable {
         if (event.getCode() != KeyCode.ENTER || event.getCode() != KeyCode.BACK_SPACE){
             TextField enteredField = (TextField) event.getSource();
             int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
+            restrictLength(phoneNumber[indexOfField]);
             if (indexOfField != 9) {
                 phoneNumber[indexOfField + 1].requestFocus();
             } else {
@@ -72,14 +76,24 @@ public class MakeAndCancelAppointmentController implements Initializable {
         }
     }
 
+    //Making sure that the amount of numbers in one phone number box is not greater than one
+    private void restrictLength(TextField field){
+        int maximumLength = 1;
+        if (field.getText().length() > 1){
+            String s = field.getText().substring(0, maximumLength);
+            field.setText(s);
+        }
+    }
+
     //Making or deleting the appointment
     @FXML
     private void createOrDeleteAppointment() throws SQLException, ClassNotFoundException {
+        System.out.println(bookOrCancel.getValue());
         //Existence check on bookOrCancel
-        if (bookOrCancel.getValue() != ""){
+        if (bookOrCancel.getValue() != null){
 
             //Existence check on the appointmentDate field
-            if (appointmentDate.getValue().equals("")){
+            if (appointmentDate.getValue().equals(null)){
                 error.setText("Please enter every required field.");
                 error2.setText("*");
                 return;
@@ -98,7 +112,7 @@ public class MakeAndCancelAppointmentController implements Initializable {
             for (TextField number : this.phoneNumber){
                 //Existence and type checking each number of the phone number
                 try{
-                    Integer.valueOf(number.getText());
+                    System.out.println(Integer.valueOf(number.getText()));
                 } catch (NumberFormatException e){
                     System.out.println("FAT");
                     error.setText("Please enter every required field.");
@@ -110,13 +124,13 @@ public class MakeAndCancelAppointmentController implements Initializable {
 
             if (bookOrCancel.getValue().equals("Book")){
                 //Existence check on assignedEmployee
-                if (assignedEmployee.getValue().equals("")) {
+                if (assignedEmployee.getValue().equals(null)) {
                     error.setText("Please enter every required field.");
                     error4.setText("*");
                 } else {
                     String assignedEmployee = this.assignedEmployee.getValue();
                     //Existence check on serviceRequired
-                    if (serviceRequired.getValue().equals("")){
+                    if (serviceRequired.getValue().equals(null)){
                         error.setText("Please enter every required field.");
                         error6.setText("*");
                     } else {
@@ -151,6 +165,14 @@ public class MakeAndCancelAppointmentController implements Initializable {
             serviceRequired.setDisable(true);
             emailAddress.setDisable(true);
         }
+    }
+
+    //Return to the home page
+    @FXML
+    private void returnToHome(ActionEvent event) throws IOException {
+        SwitchScenes switchScenes = new SwitchScenes();
+        Stage stage = switchScenes.switchScene(event, "Pages/home.fxml");
+        stage.show();
     }
 
     //Adding the possible choices to the ChoiceBoxes

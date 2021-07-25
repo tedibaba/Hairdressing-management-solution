@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -14,11 +16,40 @@
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="1473.0" spacing="80.0">
          <children>
-            <Label text="Prepare payment">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="108.0" prefWidth="575.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
+                                 <graphic>
+                                    <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Back%20arrow.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label alignment="CENTER" prefHeight="22.0" prefWidth="100.0" text="Return">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <Label text="Prepare payment">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label text="Client name: ">

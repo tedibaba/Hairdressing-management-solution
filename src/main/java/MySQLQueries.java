@@ -259,7 +259,7 @@ public class MySQLQueries {
     //Adding an appointment to the database
     public static void makeAppointment(String date, String name, String assignedEmployee, String service, String phoneNumber, String emailAddress) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "inset into appointments(ClientName, EmailAddress, PhoneNumber, DateOfAppointment, ServiceRequired, AssignnedEmployee) values (?,?,?,?,?,?)";
+        String sql = "insert into appointments(ClientName, EmailAddress, PhoneNumber, DateOfAppointment, ServiceRequired, AssignedEmployee) values (?,?,?,?,?,?)";
         PreparedStatement makeAppointment = connection.prepareStatement(sql);
         makeAppointment.setString(1, name);
         makeAppointment.setString(2, emailAddress);

@@ -19,7 +19,27 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="396.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="396.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
+                                 <graphic>
+                                    <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Back%20arrow.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label alignment="CENTER" prefHeight="22.0" prefWidth="100.0" text="Return">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children></HBox>
                   <Label text="Make or cancel an appointment">
                      <font>
                         <Font size="48.0" />
@@ -49,7 +69,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="appointmentDate" prefHeight="41.0" prefWidth="234.0" />
+                  <DatePicker fx:id="appointmentDate" editable="false" prefHeight="41.0" prefWidth="234.0" />
                   <Label fx:id="error2">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -64,7 +84,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="51.0" prefWidth="439.0">
+                  <TextField fx:id="name" prefHeight="51.0" prefWidth="439.0">
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
@@ -162,7 +182,10 @@
                   </Label>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="229.0" text="Make/Cancel Appointment" />
+            <Button mnemonicParsing="false" onAction="#createOrDeleteAppointment" prefHeight="61.0" prefWidth="229.0" text="Enter">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             <Label fx:id="error" prefHeight="17.0" prefWidth="260.0" />
          </children>
          <HBox.margin>

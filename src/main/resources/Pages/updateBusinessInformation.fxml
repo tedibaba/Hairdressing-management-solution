@@ -6,81 +6,141 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UpdateBusinessInformationController">
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UpdateBusinessInformationController">
    <children>
-      <Label layoutX="857.0" layoutY="19.0" text="Update Business Information">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="1001.0" fitWidth="465.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" smooth="false">
+      <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1562.0" spacing="40.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="108.0" prefWidth="380.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
+                                 <graphic>
+                                    <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Back%20arrow.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label alignment="CENTER" prefHeight="22.0" prefWidth="100.0" text="Return">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <Label text="Update Business Information">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Leave the field empty to not change it" textFill="#e81e1e">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Salon name: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="salonName" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="500.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Business ABN: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="businessABN" alignment="CENTER" prefHeight="53.0" prefWidth="570.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Salon owner's name: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="ownerName" alignment="CENTER" prefHeight="53.0" prefWidth="604.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Salon phone number: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
+                     <children>
+                        <TextField fx:id="firstNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="secondNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="thirdNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="fourthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="fifthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="sixthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="seventhNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="eighthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="ninthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <TextField fx:id="tenthNumber" prefHeight="53.0" prefWidth="36.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Address of hairdressing salon: ">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="address" alignment="CENTER" prefHeight="53.0" prefWidth="594.0" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#updateCurrentBusinessInformation" prefHeight="53.0" prefWidth="223.0" text="Update Business Information" />
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+      <ImageView fitHeight="1080.0" fitWidth="518.0" pickOnBounds="true">
          <image>
             <Image url="@../Images/paint.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="1009.0" layoutY="95.0" text="Leave the field empty to not change it" textFill="#e81e1e">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="1097.0" layoutY="161.0" text="Salon name">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="salonName" alignment="CENTER" layoutX="836.0" layoutY="202.0" prefHeight="53.0" prefWidth="648.0" />
-      <Label layoutX="1090.0" layoutY="311.0" text="Business ABN">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="businessABN" alignment="CENTER" layoutX="838.0" layoutY="353.0" prefHeight="53.0" prefWidth="648.0" />
-      <Label layoutX="1058.0" layoutY="467.0" text="Salon owner's name">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ownerName" alignment="CENTER" layoutX="831.0" layoutY="508.0" prefHeight="53.0" prefWidth="648.0" />
-      <Label layoutX="1052.0" layoutY="621.0" text="Salon phone number">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="1010.0" layoutY="785.0" text="Address of hairdressing salon">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="address" alignment="CENTER" layoutX="831.0" layoutY="826.0" prefHeight="53.0" prefWidth="648.0" />
-      <Button layoutX="1066.0" layoutY="916.0" mnemonicParsing="false" onAction="#updateCurrentBusinessInformation" prefHeight="53.0" prefWidth="223.0" text="Update Business Information" />
-      <HBox layoutX="844.0" layoutY="690.0" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
-         <children>
-            <TextField fx:id="firstNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="secondNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="thirdNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="fourthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets right="20.0" />
-               </padding>
-            </TextField>
-            <TextField fx:id="fifthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="sixthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="seventhNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
-            </TextField>
-            <TextField fx:id="eighthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="ninthNumber" onKeyReleased="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
-            <TextField fx:id="tenthNumber" prefHeight="53.0" prefWidth="36.0" />
-         </children>
-      </HBox>
    </children>
-</AnchorPane>
+</HBox>

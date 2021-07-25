@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -7,9 +8,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.swing.text.DateFormatter;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -141,6 +144,15 @@ public class PreparePaymentController implements Initializable {
 
         System.out.println(total);
     }
+
+    //Return to the home page
+    @FXML
+    private void returnToHome(ActionEvent event) throws IOException {
+        SwitchScenes switchScenes = new SwitchScenes();
+        Stage stage = switchScenes.switchScene(event, "Pages/home.fxml");
+        stage.show();
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
