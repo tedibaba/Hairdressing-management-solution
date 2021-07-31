@@ -65,6 +65,11 @@
                         <Font size="24.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="clientNameError">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -130,6 +135,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label fx:id="phoneNumberError" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -143,6 +149,11 @@
                      </HBox.margin>
                   </Label>
                   <ComboBox fx:id="servicer" prefHeight="53.0" prefWidth="481.0" />
+                  <Label fx:id="servicerError">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
@@ -161,6 +172,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="serviceError" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
@@ -179,13 +191,23 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="productError" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#calculateAmountDue" prefHeight="84.0" prefWidth="287.0" text="Calculate amount due">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#calculateAmountDue" prefHeight="84.0" prefWidth="287.0" text="Calculate amount due">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="errorMessage">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
          </children>
          <HBox.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

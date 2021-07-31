@@ -59,25 +59,93 @@
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
+                  <Label fx:id="clientNameError">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="98.0" prefWidth="1402.0">
                <children>
-                  <Label text="Phone number of client:">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="phoneNumber" prefHeight="51.0" prefWidth="391.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font></TextField>
+                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="940.0">
+                     <children>
+                        <Label text="Phone number">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="firstNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="secondNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="thirdNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="fourthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="fifthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="sixthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="seventhNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="eighthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="ninthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="tenthNumber" prefHeight="53.0" prefWidth="36.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label fx:id="phoneNumberError" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#searchClient" prefHeight="35.0" prefWidth="146.0" text="Search for client" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#searchClient" prefHeight="43.0" prefWidth="163.0" text="Search for client" />
+                  <Label fx:id="errorMessage">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
             <VBox alignment="TOP_CENTER" prefHeight="631.0" prefWidth="1296.0">
                <children>
                   <Label text="Clients">

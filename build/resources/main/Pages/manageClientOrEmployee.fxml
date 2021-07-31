@@ -3,29 +3,51 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="page" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManageClientAndEmployeeController">
+
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="1010.0" fitWidth="536.0" layoutX="-11.0" layoutY="-10.0" pickOnBounds="true">
-         <image>
-            <Image url="@../Images/Manage%20client%20or%20employee.jpg" />
-         </image>
-      </ImageView>
-      <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="-11.0" maxHeight="-Infinity" prefHeight="1000.0" prefWidth="1472.0" spacing="18.0">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="1106.0" prefWidth="1402.0" spacing="18.0">
          <children>
-            <Label prefHeight="80.0" prefWidth="619.0" text=" Manage Client or Employees">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="396.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#returnToHome" prefHeight="100.0" prefWidth="100.0">
+                                 <graphic>
+                                    <ImageView blendMode="DARKEN" fitHeight="92.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/Back%20arrow.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label alignment="CENTER" prefHeight="22.0" prefWidth="100.0" text="Return">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label prefHeight="80.0" prefWidth="619.0" text=" Manage Client or Employees">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
                <children>
                   <Label text="Is an employee or client being managed?">
@@ -33,7 +55,20 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="clientOrEmployee" prefHeight="37.0" prefWidth="297.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ChoiceBox fx:id="clientOrEmployee" prefHeight="37.0" prefWidth="297.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="530.0">
+                           <children>
+                              <Label fx:id="clientOrEmployeeError">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
@@ -43,12 +78,25 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="addOrRemove" prefHeight="37.0" prefWidth="297.0" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="1472.0">
+                     <children>
+                        <ChoiceBox fx:id="addOrRemove" prefHeight="37.0" prefWidth="297.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="533.0">
+                           <children>
+                              <Label fx:id="addOrRemoveError">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="66.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="115.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="1472.0" spacing="30.0">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1472.0" spacing="30.0">
                      <children>
                         <Label text="Full name:">
                            <font>
@@ -60,6 +108,7 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="fullNameError" />
                      </children>
                   </HBox>
                </children>
@@ -78,18 +127,19 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="emailError" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <Label text="Phone number?">
+                  <Label text="Phone number:">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
+                  <HBox fx:id="phone" alignment="CENTER" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
                      <children>
                         <TextField fx:id="firstNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
                         <TextField fx:id="secondNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
@@ -112,6 +162,7 @@
                         <TextField fx:id="eighthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
                         <TextField fx:id="ninthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
                         <TextField fx:id="tenthNumber" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" />
+                        <Label fx:id="phoneNumberError" />
                      </children>
                   </HBox>
                </children>
@@ -123,64 +174,18 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="666.0" spacing="30.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="dayOne" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="D">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="dayTwo" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="D">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Label text="/">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="monthOne" alignment="CENTER" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="M">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="monthTwo" alignment="CENTER" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="M">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Label text="/">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="yearOne" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="Y">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="yearTwo" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="Y">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="yearThree" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="Y">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="yearFour" onKeyTyped="#changeToNextNumber" prefHeight="53.0" prefWidth="36.0" promptText="Y">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
+                        <DatePicker fx:id="datePicker" prefHeight="40.0" prefWidth="359.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="479.0">
+                           <children>
+                              <Label fx:id="datePickerError">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
@@ -199,6 +204,7 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="salaryError" />
                      </children>
                   </HBox>
                </children>
@@ -217,19 +223,37 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="emergencyError" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#getAllEnteredInformation" text="Do operation">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Button>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#getAllEnteredInformation" text="Enter">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="659.0">
+                     <children>
+                        <Label fx:id="error" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
       </VBox>
+      <ImageView fitHeight="1080.0" fitWidth="518.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Images/addStock.png" />
+         </image>
+      </ImageView>
    </children>
-</AnchorPane>
+</HBox>

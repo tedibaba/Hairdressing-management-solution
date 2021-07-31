@@ -2,10 +2,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -36,12 +33,17 @@ public class PreparePaymentController implements Initializable {
     @FXML TextField eighthNumber;
     @FXML TextField ninthNumber;
     @FXML TextField tenthNumber;
-
     @FXML TextArea productList;
     @FXML TextArea serviceList;
     @FXML ComboBox<String> servicer;
     @FXML ComboBox<String> serviceDone;
     @FXML ComboBox<String> productBought;
+    @FXML Label clientNameError;
+    @FXML Label phoneNumberError;
+    @FXML Label servicerError;
+    @FXML Label errorMessage;
+    @FXML Label serviceError;
+    @FXML Label productError;
 
     //Keeping track of what has been bought by the client
     ArrayList<String> servicesDone = new ArrayList<>();
@@ -54,9 +56,11 @@ public class PreparePaymentController implements Initializable {
     HashMap<String, String> employees;
 
     TextField[] phoneNumber;
+    Label[] errorFields;
     {
         Platform.runLater(() -> {
             phoneNumber = new TextField[]{firstNumber, secondNumber, thirdNumber, fourthNumber, fifthNumber, sixthNumber, seventhNumber, eighthNumber, ninthNumber, tenthNumber};
+            errorFields = new Label[]{clientNameError, phoneNumberError, servicerError, serviceError, productError};
         });
     }
 
@@ -99,28 +103,63 @@ public class PreparePaymentController implements Initializable {
     //Calculating the amount that the customer needs to pay and then adding that to the database
     @FXML
     private void calculateAmountDue() throws SQLException, ClassNotFoundException {
+        //Resetting all the error fields
+        for (Label error: errorFields){
+            error.setText("");
+        }
+        errorMessage.setText("");
+
+        String clientName = "";
+        String servicer = "";
+        String phoneNumber = "";
+
+        //Checking to see if all the fields have passed validation
+        boolean errorFree = true;
+        ArrayList<Label> errors = new ArrayList<>();
+
         //Existence check on the clientName field
         if (this.clientName.getText().equals("") == true){
-            return;
+            errorFree = false;
+            errors.add(clientNameError);
+        } else {
+            clientName = this.clientName.getText();
         }
-        String clientName = this.clientName.getText();
-        String phoneNumber = "";
+
         for (TextField number : this.phoneNumber){
             //Existence and type checking each number of the phone number
             try{
                 Integer.valueOf(number.getText());
             } catch (NumberFormatException e){
-                System.out.println("FAT");
-                return;
+                errorFree = false;
+                errors.add(phoneNumberError);
             }
             phoneNumber += number.getText();
         }
-        double total = 0.0;
+
+        //Existence error in servicer
+        if (this.servicer.getValue() == null){
+            errorFree = false;
+            errors.add(servicerError);
+        } else {
+            servicer = this.servicer.getValue();
+        }
+
         //Existence checking both services done and products bought together as it is possible just to buy one and not the other
         if (servicesDone.isEmpty() && productsBought.isEmpty()){
-            System.out.print("Customer should have done at least one thing!");
+            errors.add(productError);
+            errors.add(serviceError);
+            errorFree = false;
+        }
+
+        if (errorFree == false){
+            for (Label error : errors){
+                error.setText("*");
+            }
+            errorMessage.setText("Please enter the fields with * next to it.");
             return;
         }
+        double total = 0.0;
+
         for (String service : servicesDone){
             total += Double.valueOf(services.get(service).get(0));
         }
@@ -136,7 +175,7 @@ public class PreparePaymentController implements Initializable {
             services.append(number + ' ');
         }
 
-        MySQLQueries.updateClientPurchases(services.toString(), products.toString(), employees.get(servicer.getValue()), phoneNumber, clientName);
+        MySQLQueries.updateClientPurchases(services.toString(), products.toString(), employees.get(servicer), phoneNumber, clientName);
         LocalDateTime localDate = LocalDateTime.now();
         DayOfWeek dow = localDate.getDayOfWeek();
         String day = dow.toString();
@@ -173,7 +212,7 @@ public class PreparePaymentController implements Initializable {
            for (String service : services.keySet()){
                serviceDone.getItems().add(service);
            }
-           for (String employee : employees.keySet()){
+           for (String employee : employees.values()){
                servicer.getItems().add(employee);
            }
         });

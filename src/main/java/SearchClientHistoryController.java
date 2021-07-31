@@ -1,3 +1,9 @@
+/* Author: Randil Hettiarachchi
+Name of file: SearchClientHistoryController.java
+Purpose:
+
+ */
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -5,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -22,11 +29,36 @@ public class SearchClientHistoryController implements Initializable {
 
     @FXML ListView clientList;
     @FXML TextField clientName;
-    @FXML TextField phoneNumber;
+    @FXML Label clientNameError;
+    @FXML Label phoneNumberError;
+    @FXML TextField firstNumber;
+    @FXML TextField secondNumber;
+    @FXML TextField thirdNumber;
+    @FXML TextField fourthNumber;
+    @FXML TextField fifthNumber;
+    @FXML TextField sixthNumber;
+    @FXML TextField seventhNumber;
+    @FXML TextField eighthNumber;
+    @FXML TextField ninthNumber;
+    @FXML TextField tenthNumber;
+    @FXML Label errorMessage;
+
 
     HashMap<Integer, ArrayList<String>> clients;
+    Label[] errorFields;
+    TextField[] phoneNumber;
+    {
+        Platform.runLater(() ->
+        {
+            errorFields = new Label[]{clientNameError, phoneNumberError};
+            phoneNumber = new TextField[]{firstNumber, secondNumber, thirdNumber, fourthNumber, fifthNumber, sixthNumber, seventhNumber, eighthNumber, ninthNumber, tenthNumber};
+        });
+    }
 
-    //Sorting the clients
+    /*Sorting the clients
+    Input: clientInformation, low, high
+    Output: clientInformation sorted alphabetically
+    Notes: low and high are indexes of the array */
     private void quicksortClients(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high){
         if (low < high){
             int pi = partition(clientInformation, low, high);
@@ -35,7 +67,11 @@ public class SearchClientHistoryController implements Initializable {
             quicksortClients(clientInformation, pi + 1, high);
         }
     }
-    //A helper function for quicksort, will take the high element as the pivot
+    /* A helper function for quicksort, will take the high element as the pivot
+    Input: clientInformation, low, high
+    Output: An integer indicating the location of the pivot
+    Notes: low and high are indexes of the array
+     */
     private int partition(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high){
         String pivot = clientInformation.get(high).get(0) + clientInformation.get(high).get(2);
         int i = low - 1;
@@ -76,8 +112,44 @@ public class SearchClientHistoryController implements Initializable {
     //Searching for a specific client and then displaying it on the screen
     @FXML
     private void searchClient() throws IOException {
-        String clientName = this.clientName.getText();
-        String phoneNumber = this.phoneNumber.getText();
+        for (Label error : errorFields){
+            error.setText("");
+        }
+        errorMessage.setText("");
+
+        String phoneNumber = "";
+        String clientName = "";
+
+        boolean errorFree = true;
+        ArrayList<Label> errors = new ArrayList<>();
+
+        //Existence check on clientName
+        if (this.clientName.getText() == ""){
+            errorFree = false;
+            errors.add(clientNameError);
+        } else {
+            clientName = this.clientName.getText();
+        }
+
+        for (TextField number : this.phoneNumber){
+            //Existence and type checking each number of the phone number
+            try{
+                System.out.println(Integer.valueOf(number.getText()));
+            } catch (NumberFormatException e){
+                System.out.println("FAT");
+                errors.add(phoneNumberError);
+                errorFree = false;
+            }
+            phoneNumber += number.getText();
+        }
+
+        if (errorFree == false){
+            for (Label error : errorFields){
+                error.setText("*");
+            }
+            errorMessage.setText("Please fill in the fields with * next to them");
+            return;
+        }
         ArrayList<String> client = binarySearchForClient(clients, 0, clients.size(), clientName + phoneNumber);
         //Displaying the information on a new screen
         System.out.println(client);

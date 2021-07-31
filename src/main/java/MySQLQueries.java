@@ -61,9 +61,7 @@ public class MySQLQueries {
                 continue;
             }
             if (i == 3){
-                java.util.Date dob = new SimpleDateFormat("dd/MM/yyyy").parse(employeeInformation.get(i));
-                java.sql.Date sqlDob = new java.sql.Date(dob.getTime());
-                addEmployee.setDate(i + 1, sqlDob);
+                addEmployee.setDate(i + 1, Date.valueOf(employeeInformation.get(i)));
                 continue;
             }
             addEmployee.setString(i + 1, employeeInformation.get(i));

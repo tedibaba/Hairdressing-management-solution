@@ -52,6 +52,7 @@ public class MakeAndCancelAppointmentController implements Initializable {
 
 
     TextField[] phoneNumber;
+
     {
         Platform.runLater(() -> {
             phoneNumber = new TextField[]{firstNumber, secondNumber, thirdNumber, fourthNumber, fifthNumber, sixthNumber, seventhNumber, eighthNumber, ninthNumber, tenthNumber};
@@ -88,70 +89,104 @@ public class MakeAndCancelAppointmentController implements Initializable {
     //Making or deleting the appointment
     @FXML
     private void createOrDeleteAppointment() throws SQLException, ClassNotFoundException {
-        System.out.println(bookOrCancel.getValue());
+       //Resetting the errors the were previously detected
+        error1.setText("");
+        error2.setText("");
+        error3.setText("");
+        error4.setText("");
+        error5.setText("");
+        error6.setText("");
+        error7.setText("");
+
+        boolean errorFree = true;
+        ArrayList<Label> errors = new ArrayList<>();
+
+        String bookOrCancel = "";
+        String name = "";
+        String date = "";
+        String phoneNumber = "";
+        String assignedEmployee = "";
+        String serviceRequired = "";
+        String emailAddress = "";
+
+
         //Existence check on bookOrCancel
-        if (bookOrCancel.getValue() != null){
+        if (this.bookOrCancel.getValue() != null){
+            bookOrCancel = this.bookOrCancel.getValue();
+        } else {
+            errors.add(error1);
+            errorFree = false;
+        }
 
-            //Existence check on the appointmentDate field
-            if (appointmentDate.getValue().equals(null)){
-                error.setText("Please enter every required field.");
-                error2.setText("*");
-                return;
+        //Existence check on the appointmentDate field
+        if (appointmentDate.getValue() == null){
+            errors.add(error2);
+            errorFree = false;
+        } else {
+            date = appointmentDate.getValue().toString();
+        }
+
+        //Existence check on name
+        if (this.name.getText().equals("")){
+            error3.setText("*");
+            errorFree = false;
+        } else {
+            name = this.name.getText();
+        }
+
+        for (TextField number : this.phoneNumber){
+            //Existence and type checking each number of the phone number
+            try{
+                System.out.println(Integer.valueOf(number.getText()));
+            } catch (NumberFormatException e){
+                System.out.println("FAT");
+                errors.add(error6);
+                errorFree = false;
             }
-            String date = appointmentDate.getValue().toString();
+            phoneNumber += number.getText();
+        }
 
-            //Existence check on name
-            if (name.getText().equals("")){
-                error.setText("Please enter every required field.");
-                error3.setText("*");
-                return;
-            }
-            String name = this.name.getText();
-
-            String phoneNumber = "";
-            for (TextField number : this.phoneNumber){
-                //Existence and type checking each number of the phone number
-                try{
-                    System.out.println(Integer.valueOf(number.getText()));
-                } catch (NumberFormatException e){
-                    System.out.println("FAT");
-                    error.setText("Please enter every required field.");
-                    error6.setText("*");
-                    return;
-                }
-                phoneNumber += number.getText();
-            }
-
-            if (bookOrCancel.getValue().equals("Book")){
+            if (bookOrCancel.equals("Book")){
                 //Existence check on assignedEmployee
-                if (assignedEmployee.getValue().equals(null)) {
-                    error.setText("Please enter every required field.");
-                    error4.setText("*");
+                if (this.assignedEmployee.getValue().equals(null)) {
+                    errors.add(error4);
+                    errorFree = false;
                 } else {
-                    String assignedEmployee = this.assignedEmployee.getValue();
-                    //Existence check on serviceRequired
-                    if (serviceRequired.getValue().equals(null)){
-                        error.setText("Please enter every required field.");
-                        error6.setText("*");
-                    } else {
-                        String serviceRequired = this.serviceRequired.getValue();
-                        if (emailAddress.getText().equals("")){
-                            error.setText("Please enter every required field.");
-                            error7.setText("*");
-                        } else {
-                            String emailAddress = this.emailAddress.getText();
-                            MySQLQueries.makeAppointment(date, name,assignedEmployee, serviceRequired, phoneNumber, emailAddress);
-                        }
+                    assignedEmployee = this.assignedEmployee.getValue();
+                }
+                //Existence check on serviceRequired
+                if (this.serviceRequired.getValue().equals(null)){
+                    errorFree = false;
+                    errors.add(error6);
+                } else {
+                    serviceRequired = this.serviceRequired.getValue();
+                }
+                if (this.emailAddress.getText().equals("")){
+                    errors.add(error7);
+                    errorFree = false;
+                } else {
+                    emailAddress = this.emailAddress.getText();
+                }
+                if (errorFree == true){
+                    MySQLQueries.makeAppointment(date, name, assignedEmployee, serviceRequired, phoneNumber, emailAddress);
+                } else {
+                    error.setText("Please enter every field with a * next to it");
+                    for (Label error : errors){
+                        error.setText("*");
                     }
                 }
+
             } else {
-                MySQLQueries.removeAppointment(date, name, phoneNumber);
+                if (errorFree == true){
+                    MySQLQueries.removeAppointment(date, name, phoneNumber);
+                } else {
+                    error.setText("Please enter every field with a * next to it");
+                    for (Label error : errors){
+                        error.setText("*");
+                    }
+                }
             }
-        } else {
-            error.setText("Please enter every required field.");
-            error1.setText("*");
-            return;
-        }
+
     }
 
     @FXML

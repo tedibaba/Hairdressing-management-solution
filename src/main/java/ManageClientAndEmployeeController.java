@@ -3,6 +3,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,24 +36,27 @@ public class ManageClientAndEmployeeController implements Initializable {
     @FXML TextField eighthNumber;
     @FXML TextField ninthNumber;
     @FXML TextField tenthNumber;
-    @FXML TextField dayOne;
-    @FXML TextField dayTwo;
-    @FXML TextField monthOne;
-    @FXML TextField monthTwo;
-    @FXML TextField yearOne;
-    @FXML TextField yearTwo;
-    @FXML TextField yearThree;
-    @FXML TextField yearFour;
+    @FXML DatePicker datePicker;
     @FXML TextField salary;
     @FXML TextField emergencyContact;
     @FXML AnchorPane page;
+    @FXML Label clientOrEmployeeError;
+    @FXML Label addOrRemoveError;
+    @FXML Label fullNameError;
+    @FXML Label emailError;
+    @FXML Label datePickerError;
+    @FXML Label salaryError;
+    @FXML Label emergencyError;
+    @FXML Label phoneNumberError;
+    @FXML Label error;
+
 
     TextField[] phoneNumber;
-    TextField[] dateOfBirth;
+    Label[] errorFields;
     {
         Platform.runLater(() -> {
             phoneNumber = new TextField[]{firstNumber, secondNumber, thirdNumber, fourthNumber, fifthNumber, sixthNumber, seventhNumber, eighthNumber, ninthNumber, tenthNumber};
-            dateOfBirth = new TextField[]{dayOne, dayTwo, monthOne, monthTwo, yearOne, yearTwo, yearThree, yearFour};
+            errorFields = new Label[]{clientOrEmployeeError, addOrRemoveError, fullNameError, emailError, datePickerError, salaryError, emergencyError, phoneNumberError};
         });
     }
 
@@ -60,70 +65,152 @@ public class ManageClientAndEmployeeController implements Initializable {
     private void changeToNextNumber(KeyEvent event){
         if (event.getCode() != KeyCode.ENTER || event.getCode() != KeyCode.BACK_SPACE){
             TextField enteredField = (TextField) event.getSource();
-            if (Arrays.stream(phoneNumber).anyMatch(enteredField::equals)){
-                String fieldId = enteredField.getId();
-                int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
-                if (indexOfField != 9) {
-                    phoneNumber[indexOfField + 1].requestFocus();
-                } else {
-                    page.requestFocus();
-                }
+            String fieldId = enteredField.getId();
+            int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
+            if (indexOfField != 9) {
+                phoneNumber[indexOfField + 1].requestFocus();
             } else {
-                int indexOfField = ArrayUtils.indexOf(dateOfBirth, enteredField);
-                if (indexOfField != 7) {
-                    dateOfBirth[indexOfField + 1].requestFocus();
-                } else {
-                    page.requestFocus();
-                }
+                page.requestFocus();
             }
         }
     }
 
+
     //Getting all the information and then update the database
     @FXML
     private void getAllEnteredInformation() throws SQLException, ClassNotFoundException, ParseException {
+        //Resetting all the errors that were previously detected
+        for (Label error: errorFields){
+            error.setText("");
+        }
+        error.setText("");
+        //Checking to see if all the fields have passed validation
+        boolean errorFree = true;
+        ArrayList<Label> errors = new ArrayList<>();
         //The array which will be passed to the MYSQL object so it can update the database with the new information
         ArrayList<String> person = new ArrayList<>();
-        //Combining the numbers in the phone number fields
         String phoneNumber = "";
+        String name = "";
+        String clientOrEmployee = "";
+        String email = "";
+        String dateOfBirth = "";
+        String salary = "";
+        String emergencyContact = "";
+        String addOrRemove = "";
+
+        //Combining the numbers in the phone number fields
         for (TextField number : this.phoneNumber){
+            //Existence and type checking each number of the phone number
+            try{
+                System.out.println(Integer.valueOf(number.getText()));
+            } catch (NumberFormatException e){
+                System.out.println("FAT");
+                errorFree = false;
+                errors.add(phoneNumberError);
+
+            }
             phoneNumber += number.getText();
         }
 
-        String clientName = fullName.getText();
-        String clientOrEmployee = this.clientOrEmployee.getValue();
-        String addOrRemove = this.addOrRemove.getValue();
-        person.add(clientName);
+        //Existence check on clientName
+        if (fullName.getText().equals("")){
+            errorFree = false;
+            errors.add(fullNameError);
+        } else {
+            name = fullName.getText();
+        }
+
+        //Existence check on clientOrEmployee
+        if (this.clientOrEmployee.getValue().equals(null)){
+            errorFree = false;
+            errors.add(clientOrEmployeeError);
+        } else {
+            clientOrEmployee = this.clientOrEmployee.getValue();
+        }
+
+        //Existence check on addOrRemove
+        if (this.addOrRemove.getValue() == null){
+            errorFree = false;
+            errors.add(addOrRemoveError);
+
+        } else {
+            addOrRemove = this.addOrRemove.getValue();
+        }
+
+        //Existence check on email
+        if(this.email.getText().equals("")){
+            errorFree = false;
+            errors.add(emailError);
+        } else {
+            email = this.email.getText();
+        }
 
         if (clientOrEmployee.equals("Employee")){
-            if (addOrRemove.equals("Add")){
-                person.add(email.getText());
-                person.add(phoneNumber);
-                String dateOfBirth = "";
-                for (int i = 0; i < Arrays.asList(this.dateOfBirth).size(); i++){
-                    dateOfBirth += this.dateOfBirth[i].getText();
-                    if (i == 1 || i == 3){
-                        dateOfBirth += "/";
-                    }
-                }
-                System.out.println(dateOfBirth);
-                person.add(dateOfBirth);
-                person.add(salary.getText());
-                person.add(emergencyContact.getText());
-                MySQLQueries.addEmployee(person);
+            //Existence check on datePicker
+            if (datePicker.getValue() == null){
+               errorFree = false;
+                errors.add(datePickerError);
             } else {
-                person.add(phoneNumber);
-                MySQLQueries.deleteEmployee(person);
+                dateOfBirth = datePicker.getValue().toString();
             }
-        } else {
-            if (addOrRemove.equals("Add")){
-                person.add(email.getText());
-                person.add(phoneNumber);
-                System.out.println(person);
-                MySQLQueries.addClient(person);
+            //Existence check on salary
+            if (this.salary.getText().equals("")){
+                errorFree = false;
+                errors.add(salaryError);
             } else {
+                //Type checking and also removing '$' in case the user has put it in
+                salary = this.salary.getText();
+                if (salary.charAt(0) == '$'){
+                    salary = salary.substring(1);
+                }
+                try {
+                   Integer.valueOf(salary);
+                } catch (NumberFormatException e){
+                    errorFree = false;
+                }
+            }
+            //Existence check on emergency contact
+            if (this.emergencyContact.getText().equals(null)){
+                errorFree = false;
+                emergencyError.setText("*");
+            } else {
+                emergencyContact = this.emergencyContact.getText();
+            }
+
+            if (errorFree == true){
+                person.add(name);
                 person.add(phoneNumber);
-                MySQLQueries.deleteClient(person);
+                if (addOrRemove.equals("Remove")){
+                    MySQLQueries.deleteEmployee(person);
+                } else {
+                    person.add(email);
+                    person.add(dateOfBirth);
+                    person.add(salary);
+                    person.add(emergencyContact);
+                    MySQLQueries.addEmployee(person);
+                }
+            } else {
+                for (Label error: errors){
+                    error.setText("*");
+                    this.error.setText("Please fill in the fields with * next to them");
+                }
+            }
+
+        } else if (clientOrEmployee.equals("Client")){
+            if (errorFree == true){
+                person.add(name);
+                person.add(phoneNumber);
+                if (addOrRemove.equals("Remove")){
+                    MySQLQueries.deleteClient(person);
+                } else {
+                    person.add(email);
+                    MySQLQueries.addClient(person);
+                }
+            } else {
+                for (Label error: errors){
+                    error.setText("*");
+                    this.error.setText("Please fill in the fields with * next to them");
+                }
             }
         }
     }

@@ -1,7 +1,10 @@
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,91 +25,77 @@ public class AddStockController implements Initializable {
     @FXML Label typeOfStockError;
     @FXML Label numberOfStockError;
     @FXML Label unitPriceError;
+    @FXML Label errorMessage;
 
     //All possible entries for the type of stock
     String[] stocks= {"Conditioner", "Shampoo", "Hair treatment", "Hair loss treatment", "Hair lice treatment", "Dry shampoo", "Dry conditioner", "Anti-dandruff", "Permanent hair colour", "Semi-permanent hair colour", "Temporary hair colour", "Colour remover", "Root touch up", "Hair styling", "Hair brush", "Hair comb", "Hair accessory", "Bleach", "Scissors", "Perming", "Hair clipper", "Hair dryer", "Hair straightener", "Hair curlers"};
 
-    //Keeps tracks of whether each field has passed the validation checks
-    List<Boolean> validated = Arrays.asList(false, false, false, false);
-
-    //Validate the data entered into the type of stock field
     @FXML
-    private void validateTypeOfStock(){
-        if (typeOfStock.getValue() == null){
-            typeOfStockError.setText("Please select a type of stock.");
-            validated.set(0, false);
-            return;
-        }
-        typeOfStockError.setText("");
-        validated.set(0, true);
-    }
+    private void addStock() throws SQLException, ClassNotFoundException, IOException {
+        String enteredPrice = "";
+        String numberOfStock = "";
+        String brandOfStock = "";
+        String typeOfStock = "";
 
-    //Validate the data entered into the brand of stock field
-    @FXML
-    private void validateBrandOfStock(){
-        if(brandOfStock.getText() == ""){
-            brandOfStockError.setText("Please enter the brand of the stock.");
-            validated.set(1, false);
-            return;
-        }
-        brandOfStockError.setText("");
-        validated.set(1, true);
-    }
+        ArrayList<String> stockInformation = new ArrayList<>();
+        //Checking to see if all the fields have passed validation
+        boolean errorFree = true;
+        ArrayList<Label> errors = new ArrayList<>();
 
-    //Validate the input entered into the number of stock price field
-    @FXML
-    private void validateNumberOfStock(){
-        try {
-            if (numberOfStock.getText() == ""){
-                numberOfStockError.setText("Please enter the number of the stock.");
-                validated.set(2, false);
-                return;
-            } else {
-                Integer.valueOf(numberOfStock.getText());
+        if (unitPrice.getText().equals("")){
+            errorFree = false;
+            errors.add(unitPriceError);
+        } else {
+            enteredPrice = unitPrice.getText();
+            if (enteredPrice.charAt(0) == '$'){
+                enteredPrice = enteredPrice.substring(1);
             }
-        } catch (NumberFormatException e){
-            numberOfStockError.setText("Please enter a number.");
-            validated.set(2, false);
-            return;
+            try{
+                Float.parseFloat(enteredPrice);
+            } catch (NumberFormatException e){
+                errorFree = false;
+                errors.add(unitPriceError);
+            }
         }
-        numberOfStockError.setText("");
-        validated.set(2, true);
-    }
 
-    //Validate the input entered into the unit price field
-    @FXML
-    private void validateUnitPrice(){
-        String enteredUnitPrice = unitPrice.getText();
-        if (enteredUnitPrice == ""){
-            unitPriceError.setText("Please enter the unit price of each stock");
-            validated.set(3, false);
-            return;
+        if (this.numberOfStock.getText().equals("")){
+            errorFree = false;
+            errors.add(numberOfStockError);
+        } else {
+            try {
+                numberOfStock = this.numberOfStock.getText();
+                Integer.valueOf(numberOfStock);
+            } catch (NumberFormatException e){
+                errorFree = false;
+                errors.add(numberOfStockError);
+            }
         }
-        //If the user has put in a $ sign in front of the unit price, it is necessary to remove input should still be valid
-        else if (enteredUnitPrice.charAt(0) == '$'){
-            enteredUnitPrice = enteredUnitPrice.substring(1);
-        }
-        try{
-            Float.parseFloat(enteredUnitPrice);
-        } catch (NumberFormatException e){
-            unitPriceError.setText("Please enter a number.");
-            validated.set(3, false);
-            return;
-        }
-        unitPriceError.setText("");
-        validated.set(3, true);
-    }
 
-    @FXML
-    private void addStock() throws SQLException, ClassNotFoundException {
-        if(validated.stream().distinct().count() <= 1) {
-            System.out.println("WHOOO");
-            ArrayList<String> stockInformation = new ArrayList<>();
-            stockInformation.add(typeOfStock.getValue());
-            stockInformation.add(brandOfStock.getText());
-            stockInformation.add(numberOfStock.getText());
-            stockInformation.add(unitPrice.getText());
+        if (this.brandOfStock.getText().equals("")){
+            errorFree = false;
+            errors.add(brandOfStockError);
+        }  else {
+          brandOfStock = this.brandOfStock.getText();
+        }
+
+        if (this.typeOfStock.getValue().equals(null)){
+            errorFree = false;
+            errors.add(typeOfStockError);
+        } else {
+            typeOfStock = this.typeOfStock.getValue();
+        }
+
+        if (errorFree == true){
+            stockInformation.add(typeOfStock);
+            stockInformation.add(brandOfStock);
+            stockInformation.add(numberOfStock);
+            stockInformation.add(enteredPrice);
             MySQLQueries.addStock(stockInformation);
+        } else {
+            for (Label error : errors){
+                error.setText("*");
+            }
+            errorMessage.setText("Please correct the fields with * next to them");
         }
     }
 

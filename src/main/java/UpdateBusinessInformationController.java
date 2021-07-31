@@ -34,9 +34,7 @@ public class UpdateBusinessInformationController implements Initializable {
     @FXML TextField ninthNumber;
     @FXML TextField tenthNumber;
 
-    //Phone number
     TextField[] phoneNumber;
-    //All fields apart from
     TextField[] fields;
     {
         Platform.runLater(() -> {
@@ -47,13 +45,16 @@ public class UpdateBusinessInformationController implements Initializable {
 
     @FXML
     private void updateCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
-        //!!!!!! need to check if the phone number is able to be converted into a number
-        try {
-            for (TextField number : phoneNumber){
-                 Integer.valueOf(number.getText());
-            }
-        } catch (NumberFormatException e){
+        String phoneNumber = "";
 
+        for (TextField number : this.phoneNumber){
+            //Existence and type checking each number of the phone number
+            try{
+                System.out.println(Integer.valueOf(number.getText()));
+            } catch (NumberFormatException e){
+                System.out.println("FAT");
+            }
+            phoneNumber += number.getText();
         }
         
         //Get all the new information from the user
