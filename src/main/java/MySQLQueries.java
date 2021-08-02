@@ -1,3 +1,10 @@
+/*
+Name of file: MySQLQueries
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of the file: To enable interactions with the MySQL database
+ */
+
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,13 +14,22 @@ import java.util.HashMap;
 
 public class MySQLQueries {
 
+    /*
+    Inputs: N/A
+    Outputs: A connection to the database
+    Purpose: To connect to the database
+     */
     //Connecting to the SQL database
     private static Connection connectToDatabase() throws SQLException, ClassNotFoundException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hairdressingsalon", "root", "root");
         return connection;
     }
 
-
+    /*
+    Inputs: An array list containing the new business information
+    Outputs: N/A
+    Purpose: To update the data related to the business in the database
+     */
     //Updating information related to the hairdressing salon
     public static void updateBusinessInformation(ArrayList<String> newBusinessInformation) throws SQLException, ClassNotFoundException {
         Connection connection =  connectToDatabase();
@@ -27,6 +43,11 @@ public class MySQLQueries {
         updateNewBusinessInformation.executeUpdate();
     }
 
+    /*
+    Inputs: N/A
+    Outputs: An array list containing the information of the business
+    Purpose: To get the current information of the business from the database
+     */
     //Getting the current business information
     public static ArrayList<String> getCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
@@ -42,7 +63,11 @@ public class MySQLQueries {
         return businessInformation;
     }
 
-    //Deletes the previous business information
+    /*
+    Inputs: A connection which is connected to the database
+    Outputs: N/A
+    Purpose: To delete all the information related to the business from the database
+     */
     private static void deleteBusinessInformation(Connection connection) throws SQLException, ClassNotFoundException {
         String sql = "Truncate table businessInformation";
         Statement deletePreviousBusinessInformation = connection.prepareStatement(sql);
@@ -50,7 +75,11 @@ public class MySQLQueries {
 
     }
 
-    //Adding an employee to the database
+    /*
+    Inputs: An array list containing the information of an employee
+    Outputs: N/A
+    Purpose: To add an employee into the database
+     */
     public static void addEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException, ParseException {
         Connection connection = connectToDatabase();
         String sql = "insert into employee(EmployeeName, EmailAddress, PhoneNumber, DateOfBirth, Salary, EmergencyContact) values (?, ?, ?, ?, ?, ?)";
@@ -69,7 +98,11 @@ public class MySQLQueries {
         addEmployee.executeUpdate();
     }
 
-    //Adding a client to the database
+    /*
+    Inputs: An array list containing the information of a client
+    Outputs: N/A
+    Purpose: To add a client into the database
+     */
     public static void addClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "insert into customer(CustomerName, EmailAddress, PhoneNumber) values (?,?,?)";
@@ -80,6 +113,11 @@ public class MySQLQueries {
         addClient.executeUpdate();
     }
 
+    /*
+    Inputs: An array list containing the information of the client
+    Outputs: N/A
+    Purpose: To delete a client from the database
+     */
     //Deleting a client from the database
     public static void deleteClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
@@ -91,7 +129,11 @@ public class MySQLQueries {
         deleteClient.executeUpdate();
     }
 
-    //Deleting an employee from the database
+    /*
+    Inputs: An array list containing the information of an employee
+    Outputs: N/A
+    Purpose: To delete an employee from the database
+     */
     public static void deleteEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "delete from employee where EmployeeName = ? and PhoneNumber = ?";
@@ -102,7 +144,11 @@ public class MySQLQueries {
         deleteClient.executeUpdate();
     }
 
-    //Add stock into the database
+    /*
+    Inputs: An array list containing the information of the stock to be added
+    Outputs: N/A
+    Purpose: To add stock into the database
+     */
     public static void addStock(ArrayList<String> stockInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "insert into stock(TypeOfStock, BrandOfStock, NumberOfStock, UnitPrice) values (?,?,?,?)";
@@ -123,8 +169,12 @@ public class MySQLQueries {
         addStock.executeUpdate();
     }
 
-    //Get all employee names in the database
-   //Order of output: (ID number, clientName)
+    /*
+    Inputs: N/A
+    Outputs: A hashmap containing the index of the employees as well as their names.
+    Purpose: To get all the employees' names from the database
+    Order of output: (ID number, clientName)
+     */
     public static HashMap<String, String> getEmployeeNames() throws SQLException, ClassNotFoundException {
         HashMap<String, String> employeeNames = new HashMap<>();
         Connection connection = connectToDatabase();
@@ -137,10 +187,13 @@ public class MySQLQueries {
         return employeeNames;
     }
 
-    //Get stock and their quantities from the database
-    //The search boolean is checking whether the function calling it is related to the search function
-    //Order of output: (typeOfStock, (brandOfStock, numberOfStock, unitPrice, ID number)) if search is false
-    //Order of output: (Id number, (typeOfStock, brandOfStock))
+    /*
+    Inputs: A boolean indicating whether SearchClientHistoryController has called the method
+    Outputs: A HashMap with stock information
+    Purpose: To get all the stock from the database\
+    Order of output: (typeOfStock, (brandOfStock, numberOfStock, unitPrice, ID number)) if search is false
+    Order of output: (Id number, (typeOfStock, brandOfStock))
+     */
     public static HashMap<String, ArrayList<String>> getStock(Boolean search) throws SQLException, ClassNotFoundException {
         HashMap<String, ArrayList<String>> stock = new HashMap<>();
         Connection connection = connectToDatabase();
@@ -157,10 +210,13 @@ public class MySQLQueries {
         return stock;
     }
 
-    //Getting the available services from the database
-    //The search boolean is checking whether the function calling it is from the searchClient page.
-    //Order of output: (serviceName, (price, ID number)) if search is false
-    //Order of output: (ID number, (serviceName)) if search is true
+    /*
+    Inputs: A boolean variable indicating SearchClientHistoryController has called the method
+    Outputs: A hash map with the services from the database
+    Purpose: To get the available services from the database
+    Order of output: (serviceName, (price, ID number)) if search is false
+    Order of output: (ID number, (serviceName)) if search is true
+     */
     public static HashMap<String, ArrayList<String>> getServices(Boolean search) throws SQLException, ClassNotFoundException {
         HashMap<String, ArrayList<String>> services = new HashMap<>();
         Connection connection = connectToDatabase();
@@ -177,9 +233,13 @@ public class MySQLQueries {
         return services;
     }
 
-    //Returns all the clients in the database along with their information
-    //Output order: (indexOfClient, (clientName, emailAddress, phoneNumber, productHistory, serviceHistory, employeeHistory))
-    //Index of client is only used for sorting the clients
+    /*
+    Inputs: N/A
+    Outputs: A hashmap containing the clients added to the system
+    Purpose: To get all the client from the database
+    Output order: (indexOfClient, (clientName, emailAddress, phoneNumber, productHistory, serviceHistory, employeeHistory))
+    Index of client is only used for sorting the clients
+     */
     public static HashMap<Integer, ArrayList<String>> getClients() throws SQLException, ClassNotFoundException {
         HashMap<Integer, ArrayList<String>> clientInformation = new HashMap<>();
         Connection connection = connectToDatabase();
@@ -192,7 +252,11 @@ public class MySQLQueries {
         return clientInformation;
     }
 
-    //Adding the time that the purchase was done. This information will be used in graphing
+    /*
+    Inputs: A string containing the day
+    Outputs: N/A
+    Purpose: To add the time the purchase was done to the database. This will be used to graph data.
+     */
     public static void addTimeOfPurchase(String day) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "insert into customerTimes(DayDone) values (?)";
@@ -201,8 +265,12 @@ public class MySQLQueries {
         addTimeOfService.executeUpdate();
     }
 
-    //Getting the previous client purchases
-    //Output order : (ProductHistory, ServiceHistory)
+    /*
+    Inputs: A string with the client name, a string with the phone number of the client
+    Outputs: An array list with the purchases of the client
+    Purpose: To get the previous purchases of a client
+    Output order : (ProductHistory, ServiceHistory)
+     */
     private static ArrayList<String> getClientPurchases(String clientName, String phoneNumber) throws SQLException, ClassNotFoundException {
         ArrayList<String> clientPurchases = new ArrayList<>();
         Connection connection = connectToDatabase();
@@ -234,7 +302,11 @@ public class MySQLQueries {
         return clientPurchases;
     }
 
-    //Updating what the client has purchased
+    /*
+    Inputs: A string with the services done, A string with the products bought, A string with the phone number of the client, A string with the name of the client
+    Outputs: N/A
+    Purpose: To update the database with the purchases of the client.
+     */
     public static void updateClientPurchases(String services, String products, String employeeId, String phoneNumber, String clientName) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         ArrayList<String> previousClientPurchases = getClientPurchases(clientName, phoneNumber);
@@ -254,7 +326,11 @@ public class MySQLQueries {
         updateClientPurchases.executeUpdate();
     }
 
-    //Adding an appointment to the database
+    /*
+    Inputs: A string with the date, a string with the name of the client, a string with the employee assigned to the client, a string with the service that is to be done on the client, a string with the phone number of the client, a string with the email of the client
+    Outputs: N/A
+    Purpose: To add an appointment into the database
+     */
     public static void makeAppointment(String date, String name, String assignedEmployee, String service, String phoneNumber, String emailAddress) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "insert into appointments(ClientName, EmailAddress, PhoneNumber, DateOfAppointment, ServiceRequired, AssignedEmployee) values (?,?,?,?,?,?)";
@@ -269,7 +345,11 @@ public class MySQLQueries {
 
     }
 
-    //Deleting an appointment from the database
+    /*
+    Inputs: A string with a date, a string with the name of the client, a string with the phone number of the client
+    Outputs: N/A
+    Purpose: To delete an appointment from the database
+     */
     public static void removeAppointment(String date, String name, String phoneNumber) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "delete from appointments where DateOfAppointment = ? and ClientName = ? and PhoneNumber = ?";

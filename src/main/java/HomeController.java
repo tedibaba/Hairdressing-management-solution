@@ -1,3 +1,9 @@
+/*
+Name of file: HomeController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose: To control the homeController page
+ */
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +38,11 @@ public class HomeController {
 //        });
 //    }
 
-    //When the user clicks on a function, lead them to the page they have clicked on
+    /*
+    Inputs: An action event
+    Outputs: N/A
+    Purpose: To lead the user to the page they have clicked on
+     */
     @FXML
     private void buttonClick(ActionEvent event) throws IOException {
         Button clickedButton = (Button) event.getSource();
@@ -43,6 +53,11 @@ public class HomeController {
         stage.show();
     }
 
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To exit the application
+     */
     @FXML
     private void exit(){
         Platform.exit();

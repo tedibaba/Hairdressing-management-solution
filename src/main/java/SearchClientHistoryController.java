@@ -1,7 +1,8 @@
-/* Author: Randil Hettiarachchi
-Name of file: SearchClientHistoryController.java
-Purpose:
-
+/*
+Name of file: SearchClientHistoryController
+Author: Randil
+Date the file was created: 01/07/21
+Purpose: To control the searchClientHistory page
  */
 
 import javafx.application.Platform;
@@ -55,9 +56,10 @@ public class SearchClientHistoryController implements Initializable {
         });
     }
 
-    /*Sorting the clients
+    /*
     Input: clientInformation, low, high
     Output: clientInformation sorted alphabetically
+    Purpose: To sort the clients
     Notes: low and high are indexes of the array */
     private void quicksortClients(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high){
         if (low < high){
@@ -67,9 +69,11 @@ public class SearchClientHistoryController implements Initializable {
             quicksortClients(clientInformation, pi + 1, high);
         }
     }
-    /* A helper function for quicksort, will take the high element as the pivot
+
+    /*
     Input: clientInformation, low, high
     Output: An integer indicating the location of the pivot
+    Purpose: A helper function for quicksort, will take the high element as the pivot
     Notes: low and high are indexes of the array
      */
     private int partition(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high){
@@ -91,7 +95,11 @@ public class SearchClientHistoryController implements Initializable {
         return i + 1;
     }
 
-    //Searching for a specific client
+    /*
+    Inputs: A hashmap containing information of all the clients, a low and high index which indicate indexes of the array, and the client that is being searched for
+    Outputs: An array containing the information of the client. If the client does not exist, then null is returned
+    Purpose: To search for a specific client
+     */
     private ArrayList<String> binarySearchForClient(HashMap<Integer, ArrayList<String>> clientInformation, int low, int high, String searchClient){
         if (high >= low){
             int mid = low + (high - low) / 2;
@@ -109,7 +117,11 @@ public class SearchClientHistoryController implements Initializable {
         return null;
     }
 
-    //Searching for a specific client and then displaying it on the screen
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To validate all the data entered and then invoke another class to display the information of the client if the client exists
+     */
     @FXML
     private void searchClient() throws IOException {
         for (Label error : errorFields){
@@ -136,7 +148,6 @@ public class SearchClientHistoryController implements Initializable {
             try{
                 System.out.println(Integer.valueOf(number.getText()));
             } catch (NumberFormatException e){
-                System.out.println("FAT");
                 errors.add(phoneNumberError);
                 errorFree = false;
             }
@@ -151,6 +162,10 @@ public class SearchClientHistoryController implements Initializable {
             return;
         }
         ArrayList<String> client = binarySearchForClient(clients, 0, clients.size(), clientName + phoneNumber);
+        if (client == null){
+            errorMessage.setText("This client does not exist in our system.");
+            return;
+        }
         //Displaying the information on a new screen
         System.out.println(client);
         Client clientInformation = new Client(client);
@@ -161,7 +176,11 @@ public class SearchClientHistoryController implements Initializable {
         stage.show();
     }
 
-    //Return to the home page
+    /*
+       Inputs: An action event, this action event will only be passed from the return button
+       Outputs: N/A
+       Purpose: To return to the home page so other actions can be done
+     */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -169,7 +188,11 @@ public class SearchClientHistoryController implements Initializable {
         stage.show();
     }
 
-    //Loading all the customer names into the textarea below
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To load essential data that is required to utilize the function and to load values into choice boxes
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

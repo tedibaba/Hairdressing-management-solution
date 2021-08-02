@@ -1,3 +1,9 @@
+/*
+Name of file: UpdateBusinessInformationController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of the file: To manage the updateBusinessInformation page
+ */
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +49,11 @@ public class UpdateBusinessInformationController implements Initializable {
         });
     }
 
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: Validate all the data and then invoke MySQLQueries to update the database if the data is acceptable
+     */
     @FXML
     private void updateCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
         String phoneNumber = "";
@@ -64,8 +75,11 @@ public class UpdateBusinessInformationController implements Initializable {
         MySQLQueries.updateBusinessInformation(newInformation);
     }
 
-    //When typing the phone number, when a key is pressed, it should automatically shift to the next index
-    //10th number doesnt work with this, fix it to work
+    /*
+    Inputs: A key event which will be used to find which text field had a number entered
+    Outputs: N/A
+    Purpose: When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    */
     @FXML
     private void changeToNextNumber(KeyEvent event){
         if (event.getCode() != KeyCode.BACK_SPACE){
@@ -81,7 +95,11 @@ public class UpdateBusinessInformationController implements Initializable {
         }
     }
 
-    //Making sure that the amount of numbers in one phone number box is not greater than one
+    /*
+    Inputs: The text field which has had a number entered into it
+    Outputs: N/A
+    Purpose: To make sure that the amount of numbers in one phone number box is not greater than one
+     */
     private void restrictLength(TextField field){
         int maximumLength = 1;
         if (field.getText().length() > 1){
@@ -90,7 +108,11 @@ public class UpdateBusinessInformationController implements Initializable {
         }
     }
 
-    //Return to the home page
+    /*
+   Inputs: An action event, this action event will only be passed from the return button
+   Outputs: N/A
+   Purpose: To return to the home page so other actions can be done
+    */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -98,7 +120,11 @@ public class UpdateBusinessInformationController implements Initializable {
         stage.show();
     }
 
-    //Get the current business information
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To load current business information
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

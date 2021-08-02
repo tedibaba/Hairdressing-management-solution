@@ -1,3 +1,10 @@
+/*
+Name of file: AddStockController
+Author's name: Randil
+Date the file was created: 01/07/21
+
+ */
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +37,11 @@ public class AddStockController implements Initializable {
     //All possible entries for the type of stock
     String[] stocks= {"Conditioner", "Shampoo", "Hair treatment", "Hair loss treatment", "Hair lice treatment", "Dry shampoo", "Dry conditioner", "Anti-dandruff", "Permanent hair colour", "Semi-permanent hair colour", "Temporary hair colour", "Colour remover", "Root touch up", "Hair styling", "Hair brush", "Hair comb", "Hair accessory", "Bleach", "Scissors", "Perming", "Hair clipper", "Hair dryer", "Hair straightener", "Hair curlers"};
 
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    purpose: To validate the data and then invoke MySQLQueries to add the stock if the data is valid
+     */
     @FXML
     private void addStock() throws SQLException, ClassNotFoundException, IOException {
         String enteredPrice = "";
@@ -99,7 +111,11 @@ public class AddStockController implements Initializable {
         }
     }
 
-    //Return to the home page
+    /*
+   Inputs: An action event which is linked to the return button
+   Outputs: N/A
+   Purpose: To return to the home page so other actions can be done
+    */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -107,6 +123,11 @@ public class AddStockController implements Initializable {
         stage.show();
     }
 
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To load the values into the choice box
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Platform.runLater(() -> {

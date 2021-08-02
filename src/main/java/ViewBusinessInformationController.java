@@ -1,3 +1,10 @@
+/*
+Name of file: ViewBusinessInformationController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of the file: To control the viewBusinessInformation page
+ */
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,8 +25,11 @@ public class ViewBusinessInformationController implements Initializable {
     @FXML Label salonPhoneNumber;
     @FXML Label salonAddress;
 
-
-    //Return to the home page
+    /*
+   Inputs: An action event, this action event will only be passed from the return button
+   Outputs: N/A
+   Purpose: To return to the home page so other actions can be done
+    */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -27,7 +37,11 @@ public class ViewBusinessInformationController implements Initializable {
         stage.show();
     }
 
-    //Fill all the labels with the information
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To fill the labels with information about the salon
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

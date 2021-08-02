@@ -1,3 +1,9 @@
+/*
+Name of file: PreparePaymentController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of file: To control the preparePayment page
+ */
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +70,11 @@ public class PreparePaymentController implements Initializable {
         });
     }
 
-    //When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    /*
+    Inputs: A key event which will be used to find which text field had a number entered
+    Outputs: N/A
+    Purpose: When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    */
     @FXML
     private void changeToNextNumber(KeyEvent event){
         if (event.getCode() != KeyCode.ENTER){
@@ -73,7 +83,11 @@ public class PreparePaymentController implements Initializable {
         }
     }
 
-    //Adding the service into the serviceList and the serviceBought list
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To keep track of the services bought and to add it into the serviceList list.
+     */
     @FXML
     private void addService(){
         serviceList.setText("");
@@ -86,7 +100,11 @@ public class PreparePaymentController implements Initializable {
         }
     }
 
-    //Adding the product to the productList and the productBought list
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To keep track of products bought and to add them into the list.
+     */
     @FXML
     private void addProduct(){
         productList.setText("");
@@ -100,7 +118,11 @@ public class PreparePaymentController implements Initializable {
         }
     }
 
-    //Calculating the amount that the customer needs to pay and then adding that to the database
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose To validate the inputted data and then to update the database if the data is reasonable
+     */
     @FXML
     private void calculateAmountDue() throws SQLException, ClassNotFoundException {
         //Resetting all the error fields
@@ -184,7 +206,11 @@ public class PreparePaymentController implements Initializable {
         System.out.println(total);
     }
 
-    //Return to the home page
+    /*
+   Inputs: An action event, this action event will only be passed from the return button
+   Outputs: N/A
+   Purpose: To return to the home page so other actions can be done
+    */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -192,7 +218,11 @@ public class PreparePaymentController implements Initializable {
         stage.show();
     }
 
-
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To load necessary data for the function and add possible choices into the choice boxes
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

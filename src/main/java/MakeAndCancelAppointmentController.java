@@ -1,3 +1,10 @@
+/*
+Name of file: MakeAndCancelAppointmentController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of the file: To control the makeAndCancelAppointment page
+ */
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,6 +70,11 @@ public class MakeAndCancelAppointmentController implements Initializable {
     HashMap<String, ArrayList<String>> services = new HashMap<>();
     String[] optionsForBookCancel = {"Book", "Remove"};
 
+    /*
+    Inputs: A key event which will be used to find which text field had a number entered
+    Outputs: N/A
+    Purpose: When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    */
     @FXML
     private void changeToNextNumber(KeyEvent event){
         if (event.getCode() != KeyCode.ENTER || event.getCode() != KeyCode.BACK_SPACE){
@@ -77,7 +89,11 @@ public class MakeAndCancelAppointmentController implements Initializable {
         }
     }
 
-    //Making sure that the amount of numbers in one phone number box is not greater than one
+    /*
+    Inputs: The text field which has had a number entered into it
+    Outputs: N/A
+    Purpose: To make sure that the amount of numbers in one phone number box is not greater than one
+     */
     private void restrictLength(TextField field){
         int maximumLength = 1;
         if (field.getText().length() > 1){
@@ -86,7 +102,11 @@ public class MakeAndCancelAppointmentController implements Initializable {
         }
     }
 
-    //Making or deleting the appointment
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To validate the data and then make or delete an appointment if the data is reasonable and complete
+     */
     @FXML
     private void createOrDeleteAppointment() throws SQLException, ClassNotFoundException {
        //Resetting the errors the were previously detected
@@ -189,20 +209,24 @@ public class MakeAndCancelAppointmentController implements Initializable {
 
     }
 
-    @FXML
-    private void restrictInputs(){
-        if (bookOrCancel.getValue().equals("Book")){
-            assignedEmployee.setDisable(false);
-            serviceRequired.setDisable(false);
-            emailAddress.setDisable(false);
-        } else if (bookOrCancel.getValue().equals("Remove")) {
-            assignedEmployee.setDisable(true);
-            serviceRequired.setDisable(true);
-            emailAddress.setDisable(true);
-        }
-    }
+//    @FXML
+//    private void restrictInputs(){
+//        if (bookOrCancel.getValue().equals("Book")){
+//            assignedEmployee.setDisable(false);
+//            serviceRequired.setDisable(false);
+//            emailAddress.setDisable(false);
+//        } else if (bookOrCancel.getValue().equals("Remove")) {
+//            assignedEmployee.setDisable(true);
+//            serviceRequired.setDisable(true);
+//            emailAddress.setDisable(true);
+//        }
+//    }
 
-    //Return to the home page
+    /*
+    Inputs: action event which is linked to the return button
+    Outputs: N/A
+    Purpose: To return to the home page so other actions can be done
+     */
     @FXML
     private void returnToHome(ActionEvent event) throws IOException {
         SwitchScenes switchScenes = new SwitchScenes();
@@ -210,7 +234,11 @@ public class MakeAndCancelAppointmentController implements Initializable {
         stage.show();
     }
 
-    //Adding the possible choices to the ChoiceBoxes
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To add the possible choices to the choice boxes and load necessary data for the page into lists
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

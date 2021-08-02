@@ -1,3 +1,10 @@
+/*
+Name of file: ClientInformationController
+Author's name: Randil
+Date the file was created: 01/07/21
+Purpose of the file: To control the clientInformation page
+ */
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +31,11 @@ public class ClientInformationController implements Initializable {
     HashMap<String, String> employees;
     HashMap<String, ArrayList<String>> stock;
 
-    //Adding all the client information into the fields
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To add the client's information into the fields
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String productsBought = client.getProductList();
@@ -73,7 +84,11 @@ public class ClientInformationController implements Initializable {
         });
     }
 
-    //Returning to the SearchClientHistoryFunction
+    /*
+    Inputs: N/A
+    Outputs: N/A
+    Purpose: To return to the searchClientHistory page
+     */
     @FXML
     private void returnToSearchFunction(){
         Platform.exit();
