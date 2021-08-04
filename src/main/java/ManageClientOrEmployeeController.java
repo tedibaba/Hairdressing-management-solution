@@ -195,11 +195,12 @@ public class ManageClientOrEmployeeController implements Initializable {
 
             if (errorFree == true){
                 person.add(name);
-                person.add(phoneNumber);
                 if (addOrRemove.equals("Remove")){
+                    person.add(phoneNumber);
                     MySQLQueries.deleteEmployee(person);
                 } else {
                     person.add(email);
+                    person.add(phoneNumber);
                     person.add(dateOfBirth);
                     person.add(salary);
                     person.add(emergencyContact);

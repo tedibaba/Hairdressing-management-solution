@@ -16,7 +16,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.ArrayUtils;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
@@ -43,6 +47,7 @@ public class SearchClientHistoryController implements Initializable {
     @FXML TextField ninthNumber;
     @FXML TextField tenthNumber;
     @FXML Label errorMessage;
+    @FXML HBox page;
 
 
     HashMap<Integer, ArrayList<String>> clients;
@@ -155,7 +160,7 @@ public class SearchClientHistoryController implements Initializable {
         }
 
         if (errorFree == false){
-            for (Label error : errorFields){
+            for (Label error : errors){
                 error.setText("*");
             }
             errorMessage.setText("Please fill in the fields with * next to them");
@@ -174,6 +179,38 @@ public class SearchClientHistoryController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    /*
+    Inputs: A key event which will be used to find which text field had a number entered
+    Outputs: N/A
+    Purpose: When typing the phone number, when a key is pressed, it should automatically shift to the next index
+    */
+    @FXML
+    private void changeToNextNumber(KeyEvent event){
+        if (event.getCode() != KeyCode.ENTER || event.getCode() != KeyCode.BACK_SPACE){
+            TextField enteredField = (TextField) event.getSource();
+            int indexOfField = ArrayUtils.indexOf(phoneNumber, enteredField);
+            restrictLength(phoneNumber[indexOfField]);
+            if (indexOfField != 9) {
+                phoneNumber[indexOfField + 1].requestFocus();
+            } else {
+                page.requestFocus();
+            }
+        }
+    }
+
+    /*
+    Inputs: The text field which has had a number entered into it
+    Outputs: N/A
+    Purpose: To make sure that the amount of numbers in one phone number box is not greater than one
+     */
+    private void restrictLength(TextField field){
+        int maximumLength = 1;
+        if (field.getText().length() > 1){
+            String s = field.getText().substring(0, maximumLength);
+            field.setText(s);
+        }
     }
 
     /*

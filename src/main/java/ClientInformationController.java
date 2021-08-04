@@ -6,10 +6,13 @@ Purpose of the file: To control the clientInformation page
  */
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,7 +50,7 @@ public class ClientInformationController implements Initializable {
         String[] employeesSplit = employeeHistory.split(" ");
         try {
             services = MySQLQueries.getServices(true);
-            employees = MySQLQueries.getEmployeeNames();
+            employees = MySQLQueries.getEmployeeNames(false);
             stock = MySQLQueries.getStock(true);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -90,7 +93,7 @@ public class ClientInformationController implements Initializable {
     Purpose: To return to the searchClientHistory page
      */
     @FXML
-    private void returnToSearchFunction(){
-        Platform.exit();
+    private void returnToSearchFunction(ActionEvent event){
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 }

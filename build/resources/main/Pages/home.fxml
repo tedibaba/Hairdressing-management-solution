@@ -9,13 +9,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #101820FF;" stylesheets="@../css/button.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+<AnchorPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
    <children>
-      <ImageView fitHeight="59.0" fitWidth="50.0" layoutX="1789.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/logout.png" />
-         </image>
-      </ImageView>
       <Label layoutX="551.0" layoutY="52.0" lineSpacing="4.0" prefHeight="58.0" prefWidth="800.0" text="Hairdressing Management Software" textFill="#f2aa4c" textOverrun="CLIP" underline="true">
          <font>
             <Font name="Yu Mincho Regular" size="50.0" />
@@ -97,6 +92,15 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </HBox>
+      <Button layoutX="1768.0" layoutY="52.0" mnemonicParsing="false" onAction="#exit" prefHeight="58.0" prefWidth="97.0">
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

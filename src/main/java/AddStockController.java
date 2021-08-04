@@ -49,12 +49,18 @@ public class AddStockController implements Initializable {
         String brandOfStock = "";
         String typeOfStock = "";
 
+        brandOfStockError.setText("");
+        typeOfStockError.setText("");
+        numberOfStockError.setText("");
+        unitPriceError.setText("");
+        errorMessage.setText("");
+
         ArrayList<String> stockInformation = new ArrayList<>();
         //Checking to see if all the fields have passed validation
         boolean errorFree = true;
         ArrayList<Label> errors = new ArrayList<>();
 
-        if (unitPrice.getText().equals("")){
+        if (this.unitPrice.getText().equals("")){
             errorFree = false;
             errors.add(unitPriceError);
         } else {
@@ -90,7 +96,7 @@ public class AddStockController implements Initializable {
           brandOfStock = this.brandOfStock.getText();
         }
 
-        if (this.typeOfStock.getValue().equals(null)){
+        if (this.typeOfStock.getValue() == null){
             errorFree = false;
             errors.add(typeOfStockError);
         } else {

@@ -35,8 +35,9 @@ public class MySQLQueries {
         Connection connection =  connectToDatabase();
         deleteBusinessInformation(connection);
         //Delete the row within the table so the new one added will be the only one
-        String sql = "insert into businessInformation (SalonPhoneNumber, BusinessABN, SalonName, SalonOwnerName, SalonAddress) values (?,?,?,?,?)";
+        String sql = "insert into businessInformation (SalonPhoneNumber, SalonName, BusinessABN, SalonOwnerName, SalonAddress) values (?,?,?,?,?)";
         PreparedStatement updateNewBusinessInformation = connection.prepareStatement(sql);
+        System.out.println(newBusinessInformation);
         for (int i = 0 ; i < newBusinessInformation.size() ; i++){
             updateNewBusinessInformation.setString(i + 1, newBusinessInformation.get(i));
         }
@@ -48,7 +49,6 @@ public class MySQLQueries {
     Outputs: An array list containing the information of the business
     Purpose: To get the current information of the business from the database
      */
-    //Getting the current business information
     public static ArrayList<String> getCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
         String sql = "Select * from businessInformation";
@@ -173,16 +173,21 @@ public class MySQLQueries {
     Inputs: N/A
     Outputs: A hashmap containing the index of the employees as well as their names.
     Purpose: To get all the employees' names from the database
-    Order of output: (ID number, clientName)
+    Order of output: (ID number, clientName) if payment is false
+    Order of output: (clientName, ID number) if payment is true
      */
-    public static HashMap<String, String> getEmployeeNames() throws SQLException, ClassNotFoundException {
+    public static HashMap<String, String> getEmployeeNames(boolean payment) throws SQLException, ClassNotFoundException {
         HashMap<String, String> employeeNames = new HashMap<>();
         Connection connection = connectToDatabase();
         String sql = "Select EmployeeName, ID from employee";
         Statement getEmployees = connection.prepareStatement(sql);
         ResultSet rs = getEmployees.executeQuery(sql);
         while (rs.next()){
-            employeeNames.put(rs.getString(2), rs.getString(1));
+            if (payment == false) {
+                employeeNames.put(rs.getString(2), rs.getString(1));
+            } else {
+                employeeNames.put(rs.getString(1), rs.getString(2));
+            }
         }
         return employeeNames;
     }
@@ -281,18 +286,18 @@ public class MySQLQueries {
         ResultSet rs = getClientPurchases.executeQuery();
         while(rs.next()){
             System.out.println(rs.getString(1) + " " + rs.getString(2) + ' ' + rs.getString(3));
-                if(rs.getString(1) == null || rs.getString(1).equals("")) {
+                if(rs.getString(1).equals(null) || rs.getString(1).equals("")) {
                     clientPurchases.add("P ");
                 } else {
                     clientPurchases.add(rs.getString(1));
                 }
 
-                if(rs.getString(2) == null || rs.getString(2).equals("")) {
+                if(rs.getString(2).equals(null) || rs.getString(2).equals("")) {
                     clientPurchases.add("P ");
                 } else {
                     clientPurchases.add(rs.getString(2));
                 }
-                if(rs.getString(3) == null || rs.getString(3).equals("")) {
+                if(rs.getString(3).equals(null) || rs.getString(3).equals("")) {
                     clientPurchases.add("P ");
                 } else {
                     clientPurchases.add(rs.getString(3));

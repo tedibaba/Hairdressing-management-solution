@@ -197,13 +197,19 @@ public class PreparePaymentController implements Initializable {
             services.append(number + ' ');
         }
 
-        MySQLQueries.updateClientPurchases(services.toString(), products.toString(), employees.get(servicer), phoneNumber, clientName);
+        HashMap<String, String> serviceList = MySQLQueries.getEmployeeNames(true);
+        try{
+            MySQLQueries.updateClientPurchases(services.toString(), products.toString(), serviceList.get(servicer), phoneNumber, clientName);
+        } catch (IndexOutOfBoundsException e){
+            errorMessage.setText("Client does not exist.");
+            return;
+        }
         LocalDateTime localDate = LocalDateTime.now();
         DayOfWeek dow = localDate.getDayOfWeek();
         String day = dow.toString();
         MySQLQueries.addTimeOfPurchase(day);
 
-        System.out.println(total);
+        errorMessage.setText(String.valueOf(total));
     }
 
     /*
@@ -227,7 +233,7 @@ public class PreparePaymentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             //Getting the employee, services, and products list so the amount due can be calculated
-            employees = MySQLQueries.getEmployeeNames();
+            employees = MySQLQueries.getEmployeeNames(false);
             services = MySQLQueries.getServices(false);
             products = MySQLQueries.getStock(false);
         } catch (SQLException throwables) {
@@ -245,6 +251,8 @@ public class PreparePaymentController implements Initializable {
            for (String employee : employees.values()){
                servicer.getItems().add(employee);
            }
+
+
         });
     }
 }

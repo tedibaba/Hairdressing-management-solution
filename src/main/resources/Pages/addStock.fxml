@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddStockController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddStockController">
    <children>
       <ImageView fitHeight="988.0" fitWidth="518.0" layoutX="1397.0" layoutY="3.0" pickOnBounds="true">
          <image>
             <Image url="@../Images/addStock.png" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_CENTER" layoutX="-4.0" layoutY="6.0" prefHeight="984.0" prefWidth="1376.0" spacing="70.0">
+      <VBox alignment="TOP_CENTER" layoutX="-4.0" layoutY="6.0" prefHeight="1070.0" prefWidth="1376.0" spacing="60.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -59,7 +59,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ChoiceBox fx:id="typeOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="55.0" prefWidth="468.0" />
+                        <ChoiceBox fx:id="typeOfStock" prefHeight="55.0" prefWidth="468.0" />
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="431.0">
                            <children>
                               <Label fx:id="typeOfStockError" textFill="#f50000">
@@ -83,7 +83,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="brandOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                  <TextField fx:id="brandOfStock" prefHeight="51.0" prefWidth="543.0">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -106,7 +106,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="numberOfStock" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                  <TextField fx:id="numberOfStock" prefHeight="51.0" prefWidth="543.0">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -129,7 +129,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="unitPrice" onMouseReleased="#validateBrandOfStock" prefHeight="51.0" prefWidth="543.0">
+                  <TextField fx:id="unitPrice" prefHeight="51.0" prefWidth="543.0">
                      <font>
                         <Font size="24.0" />
                      </font>

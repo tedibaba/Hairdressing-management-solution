@@ -166,7 +166,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="serviceDone" prefHeight="53.0" prefWidth="481.0" />
+                  <ComboBox fx:id="serviceDone" prefHeight="53.0" prefWidth="481.0" value="Hair blow waves"/>
                   <Button mnemonicParsing="false" onAction="#addService" text="Add service">
                      <font>
                         <Font size="18.0" />
@@ -185,7 +185,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="productBought" prefHeight="53.0" prefWidth="481.0" />
+                  <ComboBox fx:id="productBought" prefHeight="53.0" prefWidth="481.0" value="l'oreal Conditioner"/>
                   <Button mnemonicParsing="false" onAction="#addProduct" text="Add product">
                      <font>
                         <Font size="18.0" />
@@ -231,11 +231,6 @@
                </font>
             </Label>
             <TextArea fx:id="productList" editable="false" prefHeight="456.0" prefWidth="453.0" />
-            <Button mnemonicParsing="false" text="Delete purchase">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
          </children>
          <HBox.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

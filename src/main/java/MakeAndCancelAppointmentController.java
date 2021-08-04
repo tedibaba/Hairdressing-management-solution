@@ -243,7 +243,7 @@ public class MakeAndCancelAppointmentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             services = MySQLQueries.getServices(false);
-            employees = MySQLQueries.getEmployeeNames();
+            employees = MySQLQueries.getEmployeeNames(false);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

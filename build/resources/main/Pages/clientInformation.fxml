@@ -113,7 +113,7 @@
             </HBox>
          </children>
       </HBox>
-      <Button fx:id="returnToSearchFunction" mnemonicParsing="false" prefHeight="48.0" prefWidth="160.0" text="Return" />
+      <Button mnemonicParsing="false" onAction="#returnToSearchFunction" prefHeight="48.0" prefWidth="160.0" text="Return" />
    </children>
    <padding>
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

@@ -21,10 +21,9 @@ import java.util.ArrayList;
 import java.util.IllegalFormatConversionException;
 import java.util.ResourceBundle;
 
-public class UpdateBusinessInformationController implements Initializable {
+public class UpdateBusinessInformationController {
 
     ArrayList<String> currentBusinessInformation;
-    ArrayList<String> newInformation = new ArrayList<>();
     @FXML TextField salonName;
     @FXML TextField businessABN;
     @FXML TextField ownerName;
@@ -56,7 +55,11 @@ public class UpdateBusinessInformationController implements Initializable {
      */
     @FXML
     private void updateCurrentBusinessInformation() throws SQLException, ClassNotFoundException {
+        currentBusinessInformation = MySQLQueries.getCurrentBusinessInformation();
+        System.out.println(currentBusinessInformation);
+        ArrayList<String> newInformation = new ArrayList<>();
         String phoneNumber = "";
+        boolean phoneNumberError = false;
 
         for (TextField number : this.phoneNumber){
             //Existence and type checking each number of the phone number
@@ -64,14 +67,18 @@ public class UpdateBusinessInformationController implements Initializable {
                 System.out.println(Integer.valueOf(number.getText()));
             } catch (NumberFormatException e){
                 System.out.println("FAT");
+                phoneNumberError = true;
+                break;
             }
             phoneNumber += number.getText();
         }
-        
+
+        newInformation.add(phoneNumberError == false ? phoneNumber : currentBusinessInformation.get(0));
         //Get all the new information from the user
-        for (int i = 0; i < fields.length ; i++ ){
-            newInformation.add(fields[i].getText() == null ? currentBusinessInformation.get(i) : fields[i].getText());
+        for (int i = 0; i < 4 ; i++ ){
+            newInformation.add(fields[i].getText().equals("") ? currentBusinessInformation.get(i + 1) : fields[i].getText());
         }
+        System.out.println(newInformation);
         MySQLQueries.updateBusinessInformation(newInformation);
     }
 
@@ -120,18 +127,4 @@ public class UpdateBusinessInformationController implements Initializable {
         stage.show();
     }
 
-    /*
-    Inputs: N/A
-    Outputs: N/A
-    Purpose: To load current business information
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            currentBusinessInformation = MySQLQueries.getCurrentBusinessInformation();
-            System.out.println(currentBusinessInformation);
-        } catch (SQLException | ClassNotFoundException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 }
