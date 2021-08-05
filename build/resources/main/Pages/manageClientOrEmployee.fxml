@@ -47,7 +47,7 @@
                   </Label>
                </children>
             </HBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="10.0">
                <children>
                   <Label text="Is an employee or client being managed?">
                      <font>
@@ -70,7 +70,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="10.0">
                <children>
                   <Label text="Is the employee or client being added or removed?">
                      <font>
@@ -93,7 +93,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="115.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="95.0" prefWidth="1342.0" spacing="20.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1472.0" spacing="30.0">
                      <children>
@@ -131,7 +131,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="133.0" prefWidth="1342.0" spacing="20.0">
                <children>
                   <Label text="Phone number:">
                      <font>
@@ -166,16 +166,16 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0" spacing="20.0">
+            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="1472.0">
                <children>
                   <Label text="Date of birth?">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="1342.0">
                      <children>
-                        <DatePicker fx:id="datePicker" prefHeight="40.0" prefWidth="359.0" />
+                        <DatePicker fx:id="datePicker" editable="false" prefHeight="40.0" prefWidth="359.0" />
                         <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="479.0">
                            <children>
                               <Label fx:id="datePickerError">
@@ -191,7 +191,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="75.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="1472.0" spacing="30.0">
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="1342.0" spacing="30.0">
                      <children>
                         <Label text="Employee's salary:">
                            <font>
@@ -210,7 +210,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="78.0" prefWidth="1472.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="1472.0" spacing="30.0">
+                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1342.0" spacing="30.0">
                      <children>
                         <Label text="Employee's emergency contact:">
                            <font>
@@ -237,7 +237,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
-                  <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="659.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="608.0">
                      <children>
                         <Label fx:id="error" />
                      </children>

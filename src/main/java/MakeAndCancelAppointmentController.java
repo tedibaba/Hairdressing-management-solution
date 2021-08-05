@@ -117,6 +117,7 @@ public class MakeAndCancelAppointmentController implements Initializable {
         error5.setText("");
         error6.setText("");
         error7.setText("");
+        error.setText("");
 
         boolean errorFree = true;
         ArrayList<Label> errors = new ArrayList<>();
@@ -143,7 +144,13 @@ public class MakeAndCancelAppointmentController implements Initializable {
             errors.add(error2);
             errorFree = false;
         } else {
+            LocalDate tempDate = appointmentDate.getValue();
             date = appointmentDate.getValue().toString();
+            //Range check
+            if (tempDate.isBefore(LocalDate.now())){
+                errorFree = false;
+                errors.add(error2);
+            }
         }
 
         //Existence check on name
@@ -194,16 +201,19 @@ public class MakeAndCancelAppointmentController implements Initializable {
                     for (Label error : errors){
                         error.setText("*");
                     }
+                    return;
                 }
 
             } else {
                 if (errorFree == true){
+                    System.out.println("hey");
                     MySQLQueries.removeAppointment(date, name, phoneNumber);
                 } else {
                     error.setText("Please enter every field with a * next to it");
                     for (Label error : errors){
                         error.setText("*");
                     }
+                    return;
                 }
             }
 

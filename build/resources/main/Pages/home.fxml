@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+<AnchorPane prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../css/button.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
    <children>
       <Label layoutX="551.0" layoutY="52.0" lineSpacing="4.0" prefHeight="58.0" prefWidth="800.0" text="Hairdressing Management Software" textFill="#f2aa4c" textOverrun="CLIP" underline="true">
          <font>
@@ -23,7 +23,7 @@
       </Label>
       <HBox alignment="CENTER" layoutX="328.0" layoutY="147.0" prefHeight="100.0" prefWidth="1250.0" spacing="300.0">
          <children>
-            <Button fx:id="viewBusinessInformation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buttonClick" prefHeight="120.0" prefWidth="200.0" text="View Business Information" wrapText="true">
+            <Button fx:id="viewBusinessInformation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buttonClick" prefHeight="120.0" prefWidth="200.0" stylesheets="@../css/button.css" text="View Business Information" wrapText="true">
                <font>
                   <Font name="Yu Mincho Regular" size="18.0" />
                </font></Button>
@@ -31,9 +31,9 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button fx:id="generateGraphs" mnemonicParsing="false" onAction="#buttonClick" prefHeight="120.0" prefWidth="200.0" text="Generate Graphs" textFill="#72614e" wrapText="true">
+            <Button fx:id="generateGraphs" mnemonicParsing="false" onAction="#buttonClick" prefHeight="120.0" prefWidth="200.0" text="Generate Graphs" wrapText="true">
                <font>
-                  <Font name="Yu Mincho Regular" size="18.0" />
+                  <Font size="18.0" />
                </font></Button>
          </children>
       </HBox>
@@ -42,17 +42,11 @@
             <Button fx:id="preparePayment" contentDisplay="RIGHT" graphicTextGap="3.0" mnemonicParsing="false" onAction="#buttonClick" prefHeight="146.0" prefWidth="200.0" text="Prepare payment" wrapText="true">
                <font>
                   <Font size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="52.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic></Button>
-            <Button fx:id="makeAndCancelAppointment" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#buttonClick" prefHeight="146.0" prefWidth="200.0" text="Make/Cancel Appointment" wrapText="true">
+               </font></Button>
+            <Button fx:id="makeAndCancelAppointment" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#buttonClick" prefHeight="146.0" prefWidth="200.0" text="Make Or Cancel Appointment" wrapText="true">
                <font>
                   <Font size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="63.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic></Button>
+               </font></Button>
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
@@ -92,7 +86,7 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </HBox>
-      <Button layoutX="1768.0" layoutY="52.0" mnemonicParsing="false" onAction="#exit" prefHeight="58.0" prefWidth="97.0">
+      <Button layoutX="1768.0" layoutY="41.0" mnemonicParsing="false" onAction="#exit" prefHeight="69.0" prefWidth="97.0">
          <graphic>
             <ImageView fitHeight="59.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

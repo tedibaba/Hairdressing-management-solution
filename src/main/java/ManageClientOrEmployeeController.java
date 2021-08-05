@@ -22,8 +22,10 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -92,7 +94,6 @@ public class ManageClientOrEmployeeController implements Initializable {
     Outputs: N/A
     Purpose: To validate the entered data and then update the database with the information if the data is reasonable and complete
      */
-    //Getting all the information and then update the database
     @FXML
     private void getAllEnteredInformation() throws SQLException, ClassNotFoundException, ParseException {
         //Resetting all the errors that were previously detected
@@ -100,6 +101,7 @@ public class ManageClientOrEmployeeController implements Initializable {
             error.setText("");
         }
         error.setText("");
+
         //Checking to see if all the fields have passed validation
         boolean errorFree = true;
         ArrayList<Label> errors = new ArrayList<>();
@@ -137,7 +139,7 @@ public class ManageClientOrEmployeeController implements Initializable {
         }
 
         //Existence check on clientOrEmployee
-        if (this.clientOrEmployee.getValue().equals(null)){
+        if (this.clientOrEmployee.getValue() == null){
             errorFree = false;
             errors.add(clientOrEmployeeError);
         } else {
@@ -162,12 +164,32 @@ public class ManageClientOrEmployeeController implements Initializable {
         }
 
         if (clientOrEmployee.equals("Employee")){
+            if (addOrRemove.equals("Remove")){
+                if (errorFree == true){
+                    person.add(name);
+                    person.add(phoneNumber);
+                    MySQLQueries.deleteEmployee(person);
+                    return;
+                } else {
+                    for (Label error: errors){
+                        error.setText("*");
+                    }
+                    this.error.setText("Please fill in the fields with * next to them");
+                    return;
+                }
+            }
             //Existence check on datePicker
             if (datePicker.getValue() == null){
                errorFree = false;
                 errors.add(datePickerError);
             } else {
+                LocalDate tempDate = datePicker.getValue();
                 dateOfBirth = datePicker.getValue().toString();
+                //Range check
+                if (tempDate.isAfter(LocalDate.now())){
+                    errorFree = false;
+                    errors.add(datePickerError);
+                }
             }
             //Existence check on salary
             if (this.salary.getText().equals("")){
@@ -185,32 +207,30 @@ public class ManageClientOrEmployeeController implements Initializable {
                     errorFree = false;
                 }
             }
+
             //Existence check on emergency contact
-            if (this.emergencyContact.getText().equals(null)){
+            if (this.emergencyContact.getText().equals("")){
                 errorFree = false;
-                emergencyError.setText("*");
+                errors.add(emergencyError);
             } else {
                 emergencyContact = this.emergencyContact.getText();
             }
 
             if (errorFree == true){
                 person.add(name);
-                if (addOrRemove.equals("Remove")){
-                    person.add(phoneNumber);
-                    MySQLQueries.deleteEmployee(person);
-                } else {
-                    person.add(email);
-                    person.add(phoneNumber);
-                    person.add(dateOfBirth);
-                    person.add(salary);
-                    person.add(emergencyContact);
-                    MySQLQueries.addEmployee(person);
-                }
+                person.add(email);
+                person.add(phoneNumber);
+                person.add(dateOfBirth);
+                person.add(salary);
+                person.add(emergencyContact);
+                MySQLQueries.addEmployee(person);
+
             } else {
                 for (Label error: errors){
                     error.setText("*");
-                    this.error.setText("Please fill in the fields with * next to them");
                 }
+                this.error.setText("Please fill in the fields with * next to them");
+                return;
             }
 
         } else if (clientOrEmployee.equals("Client")){
@@ -226,8 +246,9 @@ public class ManageClientOrEmployeeController implements Initializable {
             } else {
                 for (Label error: errors){
                     error.setText("*");
-                    this.error.setText("Please fill in the fields with * next to them");
                 }
+                this.error.setText("Please fill in the fields with * next to them");
+                return;
             }
         }
     }

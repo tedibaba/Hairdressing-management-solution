@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MakeAndCancelAppointmentController">
+<HBox fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1045.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MakeAndCancelAppointmentController">
    <children>
-      <VBox fx:id="" alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1447.0" spacing="30.0">
+      <VBox fx:id="" alignment="TOP_CENTER" prefHeight="988.0" prefWidth="1402.0" spacing="30.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -182,11 +182,23 @@
                   </Label>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#createOrDeleteAppointment" prefHeight="61.0" prefWidth="229.0" text="Enter">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Label fx:id="error" prefHeight="17.0" prefWidth="260.0" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createOrDeleteAppointment" prefHeight="61.0" prefWidth="229.0" text="Enter">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="546.0">
+                     <children>
+                        <Label fx:id="error" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
          </children>
          <HBox.margin>
             <Insets />

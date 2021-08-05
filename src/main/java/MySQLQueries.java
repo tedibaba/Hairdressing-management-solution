@@ -82,7 +82,7 @@ public class MySQLQueries {
      */
     public static void addEmployee(ArrayList<String> employeeInformation) throws SQLException, ClassNotFoundException, ParseException {
         Connection connection = connectToDatabase();
-        String sql = "insert into employee(EmployeeName, EmailAddress, PhoneNumber, DateOfBirth, Salary, EmergencyContact) values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into employee(EmployeeName, PhoneNumber, EmailAddress, DateOfBirth, Salary, EmergencyContact) values (?, ?, ?, ?, ?, ?)";
         PreparedStatement addEmployee = connection.prepareStatement(sql);
         for (int i = 0; i < employeeInformation.size(); i++){
             if (i == 4){
@@ -105,7 +105,7 @@ public class MySQLQueries {
      */
     public static void addClient(ArrayList<String> clientInformation) throws SQLException, ClassNotFoundException {
         Connection connection = connectToDatabase();
-        String sql = "insert into customer(CustomerName, EmailAddress, PhoneNumber) values (?,?,?)";
+        String sql = "insert into customer(CustomerName, PhoneNumber, EmailAddress) values (?,?,?)";
         PreparedStatement addClient = connection.prepareStatement(sql);
         for (int i = 0; i < clientInformation.size(); i++){
             addClient.setString(i + 1, clientInformation.get(i));
@@ -362,6 +362,6 @@ public class MySQLQueries {
         remove.setString(1, date);
         remove.setString(2, name);
         remove.setString(3, phoneNumber);
-
+        remove.executeUpdate();
     }
 }

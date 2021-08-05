@@ -3,8 +3,10 @@
     -fx-border-radius: 35px;
     -fx-background-radius: 35px;
     -fx-effect:  dropshadow(three-pass-box, #F2AA4CFF, 10, 0,0,0);
+
 }
 
-.anchorPane {
-    -fx-background-color: #101820FF;
+.button:hover{
+    -fx-background-color: aliceblue;
+    -fx-translate-y: 4px;
 }
